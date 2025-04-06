@@ -37,21 +37,25 @@ export function ListingForm({ onSuccess }: ListingFormProps) {
     e.preventDefault();
     setError(null);
 
-    // Validate required fields
-    if (!formData.name || !formData.mobileNumber || !formData.mainImage || 
-        !formData.address || !formData.description || !formData.gender || 
-        !formData.roomCapacity || !formData.price) {
+    if (
+      !formData.name ||
+      !formData.mobileNumber ||
+      !formData.mainImage ||
+      !formData.address ||
+      !formData.description ||
+      !formData.gender ||
+      !formData.roomCapacity ||
+      !formData.price
+    ) {
       setError("Please fill all required fields");
       return;
     }
 
-    // Validate mobile number
     if (!/^\d{10}$/.test(formData.mobileNumber)) {
       setError("Please enter a valid 10-digit mobile number");
       return;
     }
 
-    // Validate price
     if (Number(formData.price) <= 0) {
       setError("Price must be greater than 0");
       return;
@@ -67,7 +71,7 @@ export function ListingForm({ onSuccess }: ListingFormProps) {
         },
         body: JSON.stringify({
           ...formData,
-          images: formData.images.filter(img => img.trim() !== ""),
+          images: formData.images.filter((img) => img.trim() !== ""),
           roomCapacity: Number(formData.roomCapacity),
           price: Number(formData.price),
         }),
@@ -77,7 +81,6 @@ export function ListingForm({ onSuccess }: ListingFormProps) {
         throw new Error("Failed to create listing");
       }
 
-      // Reset form on success
       setFormData({
         name: "",
         mobileNumber: "",
@@ -90,7 +93,7 @@ export function ListingForm({ onSuccess }: ListingFormProps) {
         price: "",
       });
 
-      onSuccess(); // Refresh the parent data
+      onSuccess();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to create listing");
     } finally {
@@ -99,42 +102,44 @@ export function ListingForm({ onSuccess }: ListingFormProps) {
   };
 
   const handleAddImageField = () => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      images: [...prev.images, ""]
+      images: [...prev.images, ""],
     }));
   };
 
   const handleRemoveImageField = (index: number) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      images: prev.images.filter((_, i) => i !== index)
+      images: prev.images.filter((_, i) => i !== index),
     }));
   };
 
   return (
-    <div className="space-y-4">
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Basic Information */}
+    <div className="max-h-[80vh] overflow-y-auto pr-2">
+      <form onSubmit={handleSubmit} className="space-y-4 pb-4">
+        {/* Property Name */}
         <div className="space-y-2">
           <Label htmlFor="name">Property Name*</Label>
           <Input
             id="name"
             value={formData.name}
-            onChange={(e) => setFormData({...formData, name: e.target.value})}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             placeholder="Enter property name"
             disabled={isSubmitting}
             required
           />
         </div>
 
-        {/* Contact Information */}
+        {/* Mobile Number */}
         <div className="space-y-2">
           <Label htmlFor="mobileNumber">Mobile Number*</Label>
           <Input
             id="mobileNumber"
             value={formData.mobileNumber}
-            onChange={(e) => setFormData({...formData, mobileNumber: e.target.value})}
+            onChange={(e) =>
+              setFormData({ ...formData, mobileNumber: e.target.value })
+            }
             placeholder="Enter 10-digit mobile number"
             disabled={isSubmitting}
             required
@@ -147,7 +152,9 @@ export function ListingForm({ onSuccess }: ListingFormProps) {
           <Input
             id="mainImage"
             value={formData.mainImage}
-            onChange={(e) => setFormData({...formData, mainImage: e.target.value})}
+            onChange={(e) =>
+              setFormData({ ...formData, mainImage: e.target.value })
+            }
             placeholder="Enter main image URL"
             disabled={isSubmitting}
             required
@@ -164,7 +171,7 @@ export function ListingForm({ onSuccess }: ListingFormProps) {
                 onChange={(e) => {
                   const newImages = [...formData.images];
                   newImages[index] = e.target.value;
-                  setFormData({...formData, images: newImages});
+                  setFormData({ ...formData, images: newImages });
                 }}
                 placeholder={`Image URL ${index + 1}`}
                 disabled={isSubmitting}
@@ -198,7 +205,9 @@ export function ListingForm({ onSuccess }: ListingFormProps) {
           <Input
             id="address"
             value={formData.address}
-            onChange={(e) => setFormData({...formData, address: e.target.value})}
+            onChange={(e) =>
+              setFormData({ ...formData, address: e.target.value })
+            }
             placeholder="Enter full address"
             disabled={isSubmitting}
             required
@@ -211,7 +220,9 @@ export function ListingForm({ onSuccess }: ListingFormProps) {
           <Textarea
             id="description"
             value={formData.description}
-            onChange={(e) => setFormData({...formData, description: e.target.value})}
+            onChange={(e) =>
+              setFormData({ ...formData, description: e.target.value })
+            }
             placeholder="Describe the property..."
             disabled={isSubmitting}
             required
@@ -223,7 +234,9 @@ export function ListingForm({ onSuccess }: ListingFormProps) {
           <Label>Gender Preference*</Label>
           <Select
             value={formData.gender}
-            onValueChange={(value) => setFormData({...formData, gender: value})}
+            onValueChange={(value) =>
+              setFormData({ ...formData, gender: value })
+            }
             disabled={isSubmitting}
             required
           >
@@ -243,7 +256,9 @@ export function ListingForm({ onSuccess }: ListingFormProps) {
           <Label>Room Capacity*</Label>
           <Select
             value={formData.roomCapacity}
-            onValueChange={(value) => setFormData({...formData, roomCapacity: value})}
+            onValueChange={(value) =>
+              setFormData({ ...formData, roomCapacity: value })
+            }
             disabled={isSubmitting}
             required
           >
@@ -266,15 +281,18 @@ export function ListingForm({ onSuccess }: ListingFormProps) {
             id="price"
             type="number"
             value={formData.price}
-            onChange={(e) => setFormData({...formData, price: e.target.value})}
+            onChange={(e) =>
+              setFormData({ ...formData, price: e.target.value })
+            }
             placeholder="Enter monthly price"
             disabled={isSubmitting}
             required
           />
         </div>
 
+        {/* Error & Submit */}
         {error && <div className="text-red-500 text-sm">{error}</div>}
-        
+
         <Button type="submit" disabled={isSubmitting} className="w-full">
           {isSubmitting ? (
             <>
