@@ -1,103 +1,203 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useEffect, useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import Link from "next/link";
+import ListingCard from "@/app/components/ListingCard";
+
+interface Listing {
+  _id: string;
+  name: string;
+  price: number;
+  mainImage: string;
+  address: string;
+  gender: string;
+  roomCapacity: number;
+  mobileNumber: string;
+}
+
+export default function HomePage() {
+  const [listings, setListings] = useState<Listing[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  
+  // Search and Filter States
+  const [searchValue, setSearchValue] = useState("");
+  const [filters, setFilters] = useState({
+    gender: "all",
+    roomCapacity: "all",
+    priceRange: "all"
+  });
+
+  const fetchListings = async () => {
+    try {
+      setLoading(true);
+      const params = new URLSearchParams();
+
+      // Handle search
+      if (searchValue) {
+        params.set("search", searchValue);
+      }
+
+      // Apply filters
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== "all") params.set(key, value);
+      });
+
+      const response = await fetch(`/api/listings?${params.toString()}`);
+      if (!response.ok) throw new Error(`Error: ${response.status}`);
+      const result = await response.json();
+      setListings(result);
+      setLastUpdated(new Date());
+      setError(null);
+    } catch (err) {
+      setError("Failed to fetch listings. Please try again later.");
+      console.error("Fetch error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchListings();
+  }, [searchValue, filters]);
+
+  const handleFilterChange = (field: keyof typeof filters, value: string) => {
+    setFilters(prev => ({ ...prev, [field]: value }));
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="container mx-auto px-4 py-8 space-y-6">
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle>Bodima Accommodations</CardTitle>
+              <CardDescription>
+                Find your perfect boarding place in Sri Lanka
+              </CardDescription>
+            </div>
+            <div className="flex gap-4">
+              <button
+                onClick={fetchListings}
+                className="flex items-center text-sm hover:text-primary transition-colors"
+                disabled={loading}
+              >
+                <ReloadIcon className={`mr-1 h-4 w-4 ${loading && "animate-spin"}`} />
+                Refresh
+              </button>
+              <Link 
+                href="/admin" 
+                className="bg-blue-600 text-white px-4 py-2 rounded text-sm"
+              >
+                Admin Dashboard
+              </Link>
+            </div>
+          </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+          {/* Search Section */}
+          <div className="mt-4">
+            <Input
+              placeholder="Search by name or location..."
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              className="w-full"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          </div>
+
+          {/* Filter Section */}
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Select
+              value={filters.gender}
+              onValueChange={(v) => handleFilterChange("gender", v)}
+            >
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Gender Preference" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Genders</SelectItem>
+                <SelectItem value="male">Male Only</SelectItem>
+                <SelectItem value="female">Female Only</SelectItem>
+                <SelectItem value="both">Both Genders</SelectItem>
+              </SelectContent>
+            </Select>
+
+            <Select
+              value={filters.roomCapacity}
+              onValueChange={(v) => handleFilterChange("roomCapacity", v)}
+            >
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Room Capacity" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Any Capacity</SelectItem>
+                <SelectItem value="1">Single Room</SelectItem>
+                <SelectItem value="2">Double Room</SelectItem>
+                <SelectItem value="3">Triple Room</SelectItem>
+                <SelectItem value="4">Quad Room</SelectItem>
+              </SelectContent>
+            </Select>
+
+            <Select
+              value={filters.priceRange}
+              onValueChange={(v) => handleFilterChange("priceRange", v)}
+            >
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Price Range" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Any Price</SelectItem>
+                <SelectItem value="0-10000">Under Rs. 10,000</SelectItem>
+                <SelectItem value="10000-20000">Rs. 10,000 - 20,000</SelectItem>
+                <SelectItem value="20000-30000">Rs. 20,000 - 30,000</SelectItem>
+                <SelectItem value="30000+">Above Rs. 30,000</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </CardHeader>
+
+        <CardContent>
+          <Tabs defaultValue="grid">
+            <TabsList className="mb-4">
+              <TabsTrigger value="grid">Grid View</TabsTrigger>
+              <TabsTrigger value="map">Map View</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="grid">
+              {error ? (
+                <div className="text-destructive p-4 rounded-md bg-destructive/10">
+                  {error}
+                </div>
+              ) : loading ? (
+                <div className="flex justify-center items-center h-64">
+                  <ReloadIcon className="h-8 w-8 animate-spin" />
+                </div>
+              ) : listings.length === 0 ? (
+                <div className="text-center py-8">
+                  <p>No listings found matching your criteria.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {listings.map((listing) => (
+                    <ListingCard key={listing._id} listing={listing} />
+                  ))}
+                </div>
+              )}
+            </TabsContent>
+
+            <TabsContent value="map">
+              <div className="h-96 bg-gray-100 rounded-lg flex items-center justify-center">
+                <p>Map view coming soon</p>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </CardContent>
+      </Card>
     </div>
   );
 }
