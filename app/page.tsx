@@ -8,6 +8,9 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Link from "next/link";
 import ListingCard from "@/app/components/ListingCard";
+import { useSession, signOut } from "next-auth/react";
+import { Button } from "@/components/ui/button";
+import { LogOut } from "lucide-react";
 
 interface Listing {
   _id: string;
@@ -26,6 +29,9 @@ export default function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   
+  // Use the NextAuth hook to get session data on the client side
+  const { data: session } = useSession();
+
   // Search and Filter States
   const [searchValue, setSearchValue] = useState("");
   const [filters, setFilters] = useState({
@@ -65,6 +71,7 @@ export default function HomePage() {
 
   useEffect(() => {
     fetchListings();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue, filters]);
 
   const handleFilterChange = (field: keyof typeof filters, value: string) => {
@@ -98,6 +105,31 @@ export default function HomePage() {
                 Admin Dashboard
               </Link>
             </div>
+          </div>
+
+          {/* Session Handling */}
+          <div className="mt-4 flex justify-end">
+            {session ? (
+              <div className="flex items-center gap-4">
+                {session.user?.image ? (
+                  <img
+                    src={session.user.image || "/placeholder.svg"}
+                    alt={session.user.name || "User"}
+                    className="w-8 h-8 rounded-full"
+                  />
+                ) : (
+                  <div className="w-8 h-8 p-1 bg-gray-100 rounded-full" />
+                )}
+                <Button variant="outline" size="sm" onClick={() => signOut()}>
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Sign out
+                </Button>
+              </div>
+            ) : (
+              <Link href="/login" className="bg-blue-600 text-white px-4 py-2 rounded text-sm">
+                Login
+              </Link>
+            )}
           </div>
 
           {/* Search Section */}

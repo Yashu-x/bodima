@@ -21,6 +21,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ListingForm } from "../admin/add";
+import { LogOut } from "lucide-react";
+import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
 
 interface Listing {
   _id: string;
@@ -39,6 +42,8 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const { data: session } = useSession();
+  
   const fetchListings = async () => {
     try {
       setLoading(true);
@@ -68,6 +73,30 @@ export default function AdminDashboard() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {/* Session Handling */}
+                <div className="mt-4 flex justify-end">
+                  {session ? (
+                    <div className="flex items-center gap-4">
+                      {session.user?.image ? (
+                        <img
+                          src={session.user.image || "/placeholder.svg"}
+                          alt={session.user.name || "User"}
+                          className="w-8 h-8 rounded-full"
+                        />
+                      ) : (
+                        <div className="w-8 h-8 p-1 bg-gray-100 rounded-full" />
+                      )}
+                      <Button variant="outline" size="sm" onClick={() => signOut()}>
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Sign out
+                      </Button>
+                    </div>
+                  ) : (
+                    <Link href="/login" className="bg-blue-600 text-white px-4 py-2 rounded text-sm">
+                      Login
+                    </Link>
+                  )}
+                </div>
       <Card>
         <CardHeader>
           <div className="flex justify-between items-center">
