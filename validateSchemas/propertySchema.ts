@@ -3,8 +3,8 @@ import { z } from 'zod';
 export const PropertySchema = z.object({
   title: z.string().min(3),
   ownerId: z.string(),
-  mainImage: z.string(),
-  subImages: z.array(z.string()),
+  mainImage: z.string().url(),
+  subImages: z.array(z.string().url()),
   price: z.number().positive(),
   paymentMethod: z.enum(['monthly', 'yearly']),
   occupantType: z.enum([
