@@ -3,11 +3,11 @@ import { z } from 'zod';
 export const PropertySchema = z.object({
   title: z.string().min(3),
   ownerId: z.string(),
-  mainImage: z.string().url(),
-  subImages: z.array(z.string().url()),
+  mainImage: z.string(),
+  subImages: z.array(z.string()),
   price: z.number().positive(),
   paymentMethod: z.enum(['monthly', 'yearly']),
-  audience: z.enum([
+  occupantType: z.enum([
     'For Anyone',
     'For a Couple',
     'For a Family',
@@ -18,13 +18,18 @@ export const PropertySchema = z.object({
     'For Male Only',
     'For Male Student',
   ]),
+  propertyType:z.enum([
+    'apartment',
+    'house',
+    'shared room',
+    'single room',
+  ]),
   location: z.string(),
-  tags: z.array(
-    z.object({
-      name: z.string(),
-      available: z.boolean(),
-    })
-  ),
+  specificLocation: z.string(),
+  nearestTown: z.string(),
+  tags: z.array(z.enum(["Parking", "attached Bathroom", "Kitchen", "AC"])),
+  contactNumber: z.string(),
+  adState: z.enum(['active', 'pending', 'cancel']).default('pending'),
   options: z.string()
     
 });
