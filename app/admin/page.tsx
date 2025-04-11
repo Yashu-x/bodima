@@ -20,7 +20,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { ListingForm } from "../admin/add";
+import { ListingForm } from "@/app/admin/_components/add";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
@@ -47,7 +47,7 @@ export default function AdminDashboard() {
   const fetchListings = async () => {
     try {
       setLoading(true);
-      const response = await fetch("/api/admin/listings");
+      const response = await fetch("/api/admin/listing");
       const data = await response.json();
       setListings(data);
     } catch (error) {
