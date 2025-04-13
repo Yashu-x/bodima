@@ -11,6 +11,8 @@ import ListingCard from "@/app/components/ListingCard";
 import { useSession, signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
+import { useDebounce } from "use-debounce";
+
 
 interface Listing {
   _id: string;
@@ -29,11 +31,13 @@ export default function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   
+  
   // Use the NextAuth hook to get session data on the client side
   const { data: session } = useSession();
 
   // Search and Filter States
   const [searchValue, setSearchValue] = useState("");
+  const [debouncedSearch] = useDebounce(searchValue, 500);
   const [filters, setFilters] = useState({
     gender: "all",
     roomCapacity: "all",
@@ -69,10 +73,12 @@ export default function HomePage() {
     }
   };
 
+
   useEffect(() => {
+    
     fetchListings();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchValue, filters]);
+  }, [debouncedSearch, filters]);
 
   const handleFilterChange = (field: keyof typeof filters, value: string) => {
     setFilters(prev => ({ ...prev, [field]: value }));
