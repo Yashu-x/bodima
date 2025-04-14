@@ -7,7 +7,7 @@ import { z } from "zod";
 import { Types } from "mongoose";
 
 type propertyData = z.infer<typeof PropertySchema>;
-type Params = Promise<{ uid: string }>;
+type Params = Promise<{ uid: string, pageNo: string }>;
 const RequestBodySchema = z.object({
     propertyId: z.string(),
     updateData: PropertySchema.partial(),
@@ -76,13 +76,33 @@ export async function GET(
         );
     }
     const { uid } = await params;
+    const {pageNo}=await params;
   
     console.log("Fetching userID:", uid);
     try {
-    const propertyByUserID: propertyData[] = await properties.find(
-      { ownerId: uid });
+        if (!uid) {
+            return NextResponse.json({ error: "UID is required" }, { status: 400 });
+        }
+        if (!pageNo) {
+            return NextResponse.json({ error: "Page number is required" }, { status: 400 });
+        }
+        
+        const totalPropertiesCount = await properties.countDocuments({ ownerId: uid });
+        const addsPerPage = 6;
+        const skipCount = (parseInt(pageNo) - 1) * addsPerPage;
+
+        const propertyByUserID: propertyData[] = await properties
+            .find({ ownerId: uid })
+            .skip(skipCount)
+            .limit(addsPerPage);
+
+        const totalPages = Math.ceil(totalPropertiesCount / addsPerPage);
+
+        return NextResponse.json(
+            { properties: propertyByUserID, totalPages, currentPage: parseInt(pageNo) },
+            { status: 200 }
+        );
   
-      return NextResponse.json(propertyByUserID, { status: 200 });
     } catch (error) {
       console.error("Error fetching propertyDetails :", error);
   
@@ -112,6 +132,9 @@ export async function GET(
   
     console.log("Fetching userID:", uid);
     try {
+        if (!uid) {
+            return NextResponse.json({ error: "UID is required" }, { status: 400 });
+        }
         const {propertyId} = await request.json();
         console.log("Fetching propertyID:", propertyId);
 
@@ -168,6 +191,9 @@ export async function GET(
     console.log("Fetching userID:", uid);
 
     try {
+        if (!uid) {
+            return NextResponse.json({ error: "UID is required" }, { status: 400 });
+        }
         const updatedData = await request.json();
         const validation = RequestBodySchema.safeParse(updatedData);
 

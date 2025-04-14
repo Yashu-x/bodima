@@ -8,25 +8,27 @@ const propertySchema = new Schema(
     mainImage: { type: String },
     subImages: [{ type: String }],
 
-    price: { type: Number, required: true },
+    Fee: { type: Number, required: true },
+    keyMoney: { type: Number, required: true },
+    isUtitilityIncluded: { type: Boolean, default: false },
     paymentMethod: {
       type: String,
-      enum: ["monthly", "yearly"],
+      enum: ["monthly", "yearly","Every 3 months"],
       required: true,
     },
 
     occupantType: {
       type: String,
       enum: [
-        "For Anyone",
-        "For a Couple",
-        "For a Family",
-        "For Female Job Holders",
-        "For Female Only",
-        "For Female Student",
-        "For Male Job Holders",
-        "For Male Only",
-        "For Male Student",
+        " Anyone",
+        " A Couple",
+        " A Family",
+        " Female Job Holders",
+        " Female Only",
+        " Female Student",
+        " Male Job Holders",
+        " Male Only",
+        " Male Student",
       ],
       required: true,
     },
@@ -40,6 +42,8 @@ const propertySchema = new Schema(
     location: { type: String, required: true },
     specificLocation: { type: String },
     nearestTown: { type: String },
+    langitude: { type: String },
+    latitude: { type: String },
 
     tags: [
       {
@@ -52,7 +56,7 @@ const propertySchema = new Schema(
 
     adState: {
       type: String,
-      enum: ["active", "pending", "cancel"],
+      enum: ["Active", "Pending", "Cancel"],
       default: "pending",
     },
     options: { type: String },
@@ -61,4 +65,4 @@ const propertySchema = new Schema(
 );
 
 export default mongoose.models.Property ||
-  mongoose.model("Property", propertySchema);
+  mongoose.model("properties", propertySchema);
