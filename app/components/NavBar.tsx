@@ -1,5 +1,6 @@
 "use client"
 import { Button } from '@/components/ui/button'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { LogOut, Menu } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -65,23 +66,28 @@ function NavBar() {
         <div className="hidden md:flex items-center space-x-2">
           {session ? (
             <div className="flex items-center gap-4">
-              {session.user?.image ? (
-                <img
-                  src={session.user.image}
-                  alt={session.user.name || "User"}
-                  className="w-8 h-8 rounded-full"
-                />
-              ) : (
-                <div className="w-8 h-8 bg-gray-100 rounded-full" />
-              )}
-              <Button
-                variant="outline"
-                className="border-primary text-primary hover:bg-primary hover:text-background transition-colors"
-                onClick={() => signOut()}
-              >
-                <LogOut className="w-4 h-4 mr-2" />
-                Sign out
-              </Button>
+                <Popover>
+                    <PopoverTrigger>{session.user?.image ? (
+                        <img
+                        src={session.user.image}
+                        alt={session.user.name || "User"}
+                        className="w-8 h-8 rounded-full"
+                        />
+                    ) : (
+                        <div className="w-8 h-8 bg-gray-100 rounded-full" />
+                    )}
+                    </PopoverTrigger>
+                    <PopoverContent>
+                        <Button
+                            variant="outline"
+                            className="border-primary text-primary hover:bg-primary hover:text-background transition-colors w-full"
+                            onClick={() => signOut()}
+                        >
+                            <LogOut className="w-4 h-4 mr-2" />
+                            Sign out
+                        </Button>
+                    </PopoverContent>
+                </Popover>
             </div>
           ) : (
             <>
@@ -107,21 +113,29 @@ function NavBar() {
           <hr />
           {session ? (
             <div className="flex items-center space-x-3">
-              {session.user?.image && (
-                <img
-                  src={session.user.image}
-                  alt={session.user.name || "User"}
-                  className="w-8 h-8 rounded-full"
-                />
-              )}
-              <Button
-                variant="outline"
-                className="w-full border-primary text-primary hover:bg-primary hover:text-background"
-                onClick={() => signOut()}
-              >
-                <LogOut className="w-4 h-4 mr-2" />
-                Sign out
-              </Button>
+              <Popover>
+                    <PopoverTrigger>{session.user?.image ? (
+                        <img
+                        src={session.user.image}
+                        alt={session.user.name || "User"}
+                        className="w-8 h-8 rounded-full"
+                        />
+                    ) : (
+                        <div className="w-8 h-8 bg-gray-100 rounded-full" />
+                    )}
+                    </PopoverTrigger>
+                    <PopoverContent>
+                        <Button
+                            variant="outline"
+                            className="border-primary text-primary hover:bg-primary hover:text-background transition-colors w-full"
+                            onClick={() => signOut()}
+                        >
+                            <LogOut className="w-4 h-4 mr-2" />
+                            Sign out
+                        </Button>
+                    </PopoverContent>
+                </Popover>
+                <p>{session.user?.name}</p>
             </div>
           ) : (
             <>
