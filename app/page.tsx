@@ -5,8 +5,10 @@ import Hero from "./components/Home/Hero";
 export default function HomePage() {
   
   return (
-    <div className="pt-10 pb-10 h-dvh">
-      <Hero/>
+    <div>
+      <div className="h-auto md:h-screen">
+        <Hero />
+      </div>
     </div>
   );
 }

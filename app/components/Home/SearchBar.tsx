@@ -24,7 +24,7 @@ const SearchBar: React.FC = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto mt-6 p-4 md:p-6 rounded-xl border-l-2 border-r-2 border-t-2 border-b-6 border-primary bg-background shadow-sm flex flex-col gap-6 md:gap-4 md:flex-row items-stretch md:items-center">
+    <div className="max-w-5xl mx-auto mt-6 p-4 md:p-6 rounded-xl border-l-2 border-r-2 border-t-2 border-b-6 border-primary bg-background shadow-sm flex flex-col gap-6 md:gap-4 md:flex-row items-stretch md:items-center">
       
       {/* Type of stay */}
       <div className="flex flex-col w-full md:w-1/3">
