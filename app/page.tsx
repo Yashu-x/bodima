@@ -1,12 +1,12 @@
 "use client";
 
-import SearchBar from "./components/SearchBar";
+import Hero from "./components/Home/Hero";
 
 export default function HomePage() {
   
   return (
-    <div className="">
-      <SearchBar/>
+    <div className="pt-10 pb-10 h-dvh">
+      <Hero/>
     </div>
   );
 }
