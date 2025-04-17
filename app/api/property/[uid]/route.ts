@@ -7,7 +7,7 @@ import { z } from "zod";
 import { Types } from "mongoose";
 
 type propertyData = z.infer<typeof PropertySchema>;
-type Params = Promise<{ uid: string, pageNo: string }>;
+type Params = Promise<{ uid: string }>;
 const RequestBodySchema = z.object({
     propertyId: z.string(),
     updateData: PropertySchema.partial(),
@@ -76,32 +76,21 @@ export async function GET(
         );
     }
     const { uid } = await params;
-    const {pageNo}=await params;
+    
   
     console.log("Fetching userID:", uid);
     try {
         if (!uid) {
             return NextResponse.json({ error: "UID is required" }, { status: 400 });
         }
-        if (!pageNo) {
-            return NextResponse.json({ error: "Page number is required" }, { status: 400 });
-        }
         
-        const totalPropertiesCount = await properties.countDocuments({ ownerId: uid });
-        const addsPerPage = 6;
-        const skipCount = (parseInt(pageNo) - 1) * addsPerPage;
+        const propertyByUserID = await properties.findById({ ownerId: uid }) || [];
+        if (propertyByUserID.length === 0) {
+            return NextResponse.json({ message: "No properties found" }, { status: 404 });
+        }
+        console.log("Fetched Property:", propertyByUserID);
+        return NextResponse.json(propertyByUserID, { status: 200 });
 
-        const propertyByUserID: propertyData[] = await properties
-            .find({ ownerId: uid })
-            .skip(skipCount)
-            .limit(addsPerPage);
-
-        const totalPages = Math.ceil(totalPropertiesCount / addsPerPage);
-
-        return NextResponse.json(
-            { properties: propertyByUserID, totalPages, currentPage: parseInt(pageNo) },
-            { status: 200 }
-        );
   
     } catch (error) {
       console.error("Error fetching propertyDetails :", error);
