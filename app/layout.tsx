@@ -1,19 +1,17 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import { NextAuthProvider } from "@/app/components/auth-provider"
-import NavBar from './components/NavBar';
-import Footer from './components/Footer';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+// app/layout.tsx
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+import NavBar from './components/NavBar'
+import Footer from './components/Footer'
+import Providers from './components/Providers'
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Bodima Accommodations',
   description: 'Find your perfect boarding place',
-};
-
-const queryClient = new QueryClient()
+}
 
 export default function RootLayout({
   children,
@@ -24,15 +22,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main className="min-h-screen">
-          <NextAuthProvider>
-            <QueryClientProvider client={queryClient}>
-              <NavBar />
-              {children}
-              <Footer/>
-            </QueryClientProvider>
-          </NextAuthProvider>
+          <Providers>
+            <NavBar />
+            {children}
+            <Footer/>
+          </Providers>
         </main>
       </body>
     </html>
-  );
+  )
 }
