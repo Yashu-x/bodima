@@ -20,7 +20,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { ListingForm } from "@/app/admin/_components/add";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
@@ -116,8 +115,7 @@ export default function AdminDashboard() {
                   <DialogHeader>
                     <DialogTitle>Add New Listing</DialogTitle>
                   </DialogHeader>
-                  <ListingForm onSuccess={handleListingAdded} />
-                </DialogContent>
+                 </DialogContent>
               </Dialog>
             </div>
           </div>
