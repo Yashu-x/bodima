@@ -55,7 +55,7 @@ name: CI & Auto‑merge to develop
 on:
   pull_request:
     branches:
-      - dev
+      - Dev
 
 permissions:
   contents: read
