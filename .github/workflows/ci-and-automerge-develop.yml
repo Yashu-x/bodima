@@ -5,12 +5,12 @@ on:
   push:
     branches-ignore:
       - main
-      - develop
+      - dev
 
   # Run only when PRs target develop
   pull_request:
     branches:
-      - develop
+      - dev
 
 permissions:
   pull-requests: write
