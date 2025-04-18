@@ -49,5 +49,5 @@ jobs:
       - name: Enable Pull Request Auto‑merge
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT_TOKEN }}
           merge-method: merge
