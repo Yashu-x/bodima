@@ -1,71 +1,25 @@
-# name: CI & Auto‑merge to develop
-
-# on:
-#   # Ignore direct pushes to main or develop
-#   push:
-#     branches-ignore:
-#       - main
-#       - dev
-
-#   # Run only when PRs target develop
-#   pull_request:
-#     branches:
-#       - dev
-
-# permissions:
-#   pull-requests: write
-#   contents: read
-
-# jobs:
-#   test:
-#     name: Run Unit Tests
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v3
-
-#       - name: Setup Node.js
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: 20
-#           cache: 'npm'
-
-#       - name: Install dependencies
-#         run: npm ci
-
-#       - name: Placeholder Test (no real tests yet)
-#         run: echo "No tests defined" && exit 0
-
-#   automerge:
-#     name: Enable Auto‑merge
-#     needs: test
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v3  
-
-#       - name: Enable Pull Request Auto‑merge
-#         uses: peter-evans/enable-pull-request-automerge@v3
-#         with:
-#           token: ${{ secrets.GITHUB_TOKEN }}
-#           merge-method: merge
 name: CI & Auto‑merge to develop
 
-# 🔁 Run only when a PR is created or updated targeting `develop`
 on:
+  # Ignore direct pushes to main or develop
+  push:
+    branches-ignore:
+      - main
+      - Dev
+
+  # Run only when PRs target develop
   pull_request:
     branches:
       - Dev
 
 permissions:
+  pull-requests: write
   contents: read
-  pull-requests: write  # Needed for enabling auto-merge
 
 jobs:
   test:
     name: Run Unit Tests
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -73,27 +27,73 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Unit Tests
-        run: npm test  # replace with actual test command
+      - name: Placeholder Test (no real tests yet)
+        run: echo "No tests defined" && exit 0
 
   automerge:
-    name: Auto-merge if tests pass
+    name: Enable Auto‑merge
     needs: test
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  
 
       - name: Enable Pull Request Auto‑merge
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          merge-method: merge
+#           merge-method: merge
+# name: CI & Auto‑merge to develop
+
+# # 🔁 Run only when a PR is created or updated targeting `develop`
+# on:
+#   pull_request:
+#     branches:
+#       - Dev
+
+# permissions:
+#   contents: read
+#   pull-requests: write  # Needed for enabling auto-merge
+
+# jobs:
+#   test:
+#     name: Run Unit Tests
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: 18
+#           cache: 'npm'
+
+#       - name: Install dependencies
+#         run: npm ci
+
+#       - name: Run Unit Tests
+#         run: npm test  # replace with actual test command
+
+#   automerge:
+#     name: Auto-merge if tests pass
+#     needs: test
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       - name: Enable Pull Request Auto‑merge
+#         uses: peter-evans/enable-pull-request-automerge@v3
+#         with:
+#           token: ${{ secrets.GITHUB_TOKEN }}
+#           merge-method: merge
 
