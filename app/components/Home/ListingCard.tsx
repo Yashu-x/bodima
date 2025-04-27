@@ -3,6 +3,8 @@ import { Badge } from "@/components/ui/badge";
 
 import {PersonStanding} from "lucide-react"
 import { MapPin } from 'lucide-react';
+import { useRouter } from "next/navigation";
+
 
 interface ListingCardProps {
     id: string;
@@ -68,8 +70,17 @@ const ListingCard: React.FC<ListingCardProps> = ({
     utilityIncluded,
     tags
 }) => {
+
+  const router = useRouter();
+
+  const onClickHandler = (id: string) => {
+    console.log(id);
+    router.push(`/listing/${id}`);
+  };
+
+
   return (
-    <div className="max-w-90 rounded-xl overflow-hidden shadow-lg bg-white border pb-4" onClick={() => console.log(id)}>
+    <div  className="max-w-90 rounded-xl overflow-hidden shadow-lg bg-white border pb-4 cursor-pointer transform transition-all duration-300 hover:shadow-2xl active:scale-95"    onClick={() => onClickHandler(id)}>
       <div className="center relative p-4 pl-4">
         <img
           className="w-80 h-60 object-cover rounded-[8px]"
