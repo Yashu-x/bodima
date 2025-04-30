@@ -15,21 +15,33 @@ const images = [
   // 'https://media-hosting.imagekit.io/c359d60bd0284d36/classic-cottage-house-trees-road-private-house-city-background-vector-illustration-flat-style-classic-cottage-107918095.webp?Expires=1839725849&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=kJbxR7OhPYvEXtYnbRybSXGnFt~sT5R072nguvk65WnaXyQJ2FFYgYr88WCIMkO9VPVzxn41v5Z5GR6gCFPALyyqgrPNUizk-NEA9HFeKVrm76t43pxRvFdofaQCZzIZqIRwfh82oPJm1xSORCkk14XAjXPQ81FCKvISDquZZ1XlBJYmBr4K-om8yMxMi6Ow3tFcwFoGmoUTlctvK92cdt5VvjT3pruXexSEkboTeV2RGlQkk9VitSNEOxZzNthgIQuBkJqcf4Jze8YX1bnqrnQs9ADYnVacQpgLvB9eFuJFqmDELPgIUOJeAZuqDP-4y1aSE438DBkHP5VzpKDGbw__',
   // 'https://media-hosting.imagekit.io/c359d60bd0284d36/classic-cottage-house-trees-road-private-house-city-background-vector-illustration-flat-style-classic-cottage-107918095.webp?Expires=1839725849&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=kJbxR7OhPYvEXtYnbRybSXGnFt~sT5R072nguvk65WnaXyQJ2FFYgYr88WCIMkO9VPVzxn41v5Z5GR6gCFPALyyqgrPNUizk-NEA9HFeKVrm76t43pxRvFdofaQCZzIZqIRwfh82oPJm1xSORCkk14XAjXPQ81FCKvISDquZZ1XlBJYmBr4K-om8yMxMi6Ow3tFcwFoGmoUTlctvK92cdt5VvjT3pruXexSEkboTeV2RGlQkk9VitSNEOxZzNthgIQuBkJqcf4Jze8YX1bnqrnQs9ADYnVacQpgLvB9eFuJFqmDELPgIUOJeAZuqDP-4y1aSE438DBkHP5VzpKDGbw__',
 ];
+const Property = {
+  id: '1',
+  title: 'Annexe For rent in Wijerama Rubber Waththa',
+  postedDate: '16 Apr 10:43 am',
+  location: 'Rubber waththa Rd ,Nugegoda ,Colombo',
+  views: 12,
+  price: 10000,
+  whenToPay: 'Per month',
+  name: 'Danilka Akarawita',
+  phoneNumber: '0771234567',
+  description: 'This is a beautiful annexe for rent in Wijerama Rubber Waththa. It is located in a peaceful area and has all the necessary amenities. The annexe is fully furnished and ready to move in.', 
+}
 
 export default function ListPage() {
   const params = useParams();
   const { id } = params;
   return (
     <div className='min-h-screen'>
-        <ListingTitle title='Annexe For rent in Wijerama Rubber Waththa' postedDate="16 Apr 10:43 am" location="Rubber waththa Rd ,Nugegoda ,Colombo" views={12} />
+        <ListingTitle title={Property.title} postedDate={Property.postedDate} location={Property.location} views={Property.views} />
         <div className="w-full flex flex-col md:flex-row">
           <ImageCarousel images={images} />
           <div className="flex flex-col md:w-xl bg-white md:pl-4 sm:pl-4 md:gap-2 sm:gap-2 gap-4 md:pt-0 sm:pt-0 pt-4">
             <UserCard
-              name="Danilka Akarawita"
-              price={10000}
-              phoneNumber="0771234567"
-              whenToPay="Per month"
+              name={Property.name}
+              price={Property.price}
+              phoneNumber={Property.phoneNumber}
+              whenToPay={Property.whenToPay}
             />
             <UserCard
               name="Danilka Akarawita"
