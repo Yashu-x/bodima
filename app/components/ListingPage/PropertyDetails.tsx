@@ -1,4 +1,3 @@
-// components/PropertyDetails.tsx
 import React from "react";
 
 type PropertyDetail = {

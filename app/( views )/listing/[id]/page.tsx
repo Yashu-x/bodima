@@ -38,10 +38,6 @@ const propertyInfo = [
   { key: "Kitchen Facility", value: "Available" },
 ];
 
-const desc = `Lorem ipsum dolor sit amet consectetur. Et velit varius ipsum tempor vel dignissim tincidunt. 
-Aliquam accumsan laoreet ultricies tincidunt faucibus fames Augue in sociis. 
-Nisl enim integer neque nec.`;
-
 export default function ListPage() {
   const params = useParams();
   const { id } = params;
@@ -61,7 +57,7 @@ export default function ListPage() {
           </div>
         </div>
         <div className='w-full flex flex-col md:flex-row md:gap-4 sm:gap-4 gap-2 md:pt-4 sm:pt-4 pt-2 md:pl-4 sm:pl-4'>
-          <PropertyDetails details={[...propertyInfo, ...propertyInfo]} description={desc.repeat(3)} />
+          <PropertyDetails details={[...propertyInfo, ...propertyInfo]} description={Property.description.repeat(3)} />
         </div>
     </div>
   );
