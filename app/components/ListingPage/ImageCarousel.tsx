@@ -30,7 +30,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
         <img
           src={images[currentIndex]}
           alt={`Slide ${currentIndex + 1}`}
-          className="w-full h-92 sm:h-80 md:h-auto object-cover rounded-lg"
+          className="w-full h-92 sm:h-80 md:h-[600px] object-cover rounded-lg"
         />
 
         {/* Navigation Arrows */}

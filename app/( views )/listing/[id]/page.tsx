@@ -2,6 +2,7 @@
 import ImageCarousel from '@/app/components/ListingPage/ImageCarousel';
 import ListingTitle from '@/app/components/ListingPage/ListingTitle';
 import UserCard from '@/app/components/ListingPage/UserCard';
+import WarningCard from '@/app/components/ListingPage/WarningCard';
 import { useParams } from 'next/navigation';
 
 const images = [
@@ -43,12 +44,7 @@ export default function ListPage() {
               phoneNumber={Property.phoneNumber}
               whenToPay={Property.whenToPay}
             />
-            <UserCard
-              name="Danilka Akarawita"
-              price={10000}
-              phoneNumber="0771234567"
-              whenToPay="Per month"
-            />
+            <WarningCard/>
           </div>
         </div>
     </div>
