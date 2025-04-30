@@ -1,154 +1,24 @@
 import React from 'react';
 import ListingCard from './ListingCard';
 
-const plases = [
-    {
-        id:"1",
-        "imageURL":"https://media-hosting.imagekit.io/0a31f74da39d49b7/image%2018.png?Expires=1839726120&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=i117ey6rLljec-ifQLzMii18Ll-bHqZRhFtUiWcdjBQNnnVjGU23IilBBfN~ZP3fv3yZrElCiZ9yPUpEnVg2Q1ESE8543dSuIgJMszyyh1srq1YE8R1SHmsP6z1WdsOZsIY7x7EaPLpt~GBCZS0TKBNQ691dSzy8i8E6AgSdDwhOYiS~4SNmLQN6y0O-kLUYf80acAp0I42BxIEv4Qifd~iAykCCClPN-h9oMiCa91STu2NA8~U-sExnTJf1jNdIv~Fk7YkoYOlg8UcpEEqqT165M2LMMWuR5juv98JtUYBFHWsbwUENj3fNfOkaMbPM6ZVyYPt24NYqk4qKohquVw__",
-        "ForWho":"Male Only",
-        "name":"Annexe for rent in Nugegoda",
-        "address":"No. 13/A, Rubberwatter Road, Balla Ripu Para, K",
-        "price":12000,
-        "paymentType":"Monthly",
-        "keyMoneyStates":false,
-        "utilityIncluded":true,
-        "tags":[
-                { key: "Bedrooms", value: "2" },
-                { key: "Bathrooms", value: "1" },
-                { key: "Parking", value: "1" },
-            ]
-    },
-    {
-        id:"1",
-        "imageURL":"https://media-hosting.imagekit.io/0a31f74da39d49b7/image%2018.png?Expires=1839726120&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=i117ey6rLljec-ifQLzMii18Ll-bHqZRhFtUiWcdjBQNnnVjGU23IilBBfN~ZP3fv3yZrElCiZ9yPUpEnVg2Q1ESE8543dSuIgJMszyyh1srq1YE8R1SHmsP6z1WdsOZsIY7x7EaPLpt~GBCZS0TKBNQ691dSzy8i8E6AgSdDwhOYiS~4SNmLQN6y0O-kLUYf80acAp0I42BxIEv4Qifd~iAykCCClPN-h9oMiCa91STu2NA8~U-sExnTJf1jNdIv~Fk7YkoYOlg8UcpEEqqT165M2LMMWuR5juv98JtUYBFHWsbwUENj3fNfOkaMbPM6ZVyYPt24NYqk4qKohquVw__",
-        "ForWho":"Male Only",
-        "name":"Annexe for rent in Nugegoda",
-        "address":"No. 13/A, Rubberwatter Road, Balla Ripu Para, K",
-        "price":12000,
-        "paymentType":"Monthly",
-        "keyMoneyStates":false,
-        "utilityIncluded":true,
-        "tags":[
-                { key: "Bedrooms", value: "2" },
-                { key: "Bathrooms", value: "1" },
-                { key: "Parking", value: "1" },
-            ]
-    },
-    {
-        id:"1",
-        "imageURL":"https://media-hosting.imagekit.io/0a31f74da39d49b7/image%2018.png?Expires=1839726120&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=i117ey6rLljec-ifQLzMii18Ll-bHqZRhFtUiWcdjBQNnnVjGU23IilBBfN~ZP3fv3yZrElCiZ9yPUpEnVg2Q1ESE8543dSuIgJMszyyh1srq1YE8R1SHmsP6z1WdsOZsIY7x7EaPLpt~GBCZS0TKBNQ691dSzy8i8E6AgSdDwhOYiS~4SNmLQN6y0O-kLUYf80acAp0I42BxIEv4Qifd~iAykCCClPN-h9oMiCa91STu2NA8~U-sExnTJf1jNdIv~Fk7YkoYOlg8UcpEEqqT165M2LMMWuR5juv98JtUYBFHWsbwUENj3fNfOkaMbPM6ZVyYPt24NYqk4qKohquVw__",
-        "ForWho":"Male Only",
-        "name":"Annexe for rent in Nugegoda",
-        "address":"No. 13/A, Rubberwatter Road, Balla Ripu Para, K",
-        "price":12000,
-        "paymentType":"Monthly",
-        "keyMoneyStates":false,
-        "utilityIncluded":true,
-        "tags":[
-                { key: "Bedrooms", value: "2" },
-                { key: "Bathrooms", value: "1" },
-                { key: "Parking", value: "1" },
-            ]
-    },
-    {
-        id:"1",
-        "imageURL":"https://media-hosting.imagekit.io/0a31f74da39d49b7/image%2018.png?Expires=1839726120&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=i117ey6rLljec-ifQLzMii18Ll-bHqZRhFtUiWcdjBQNnnVjGU23IilBBfN~ZP3fv3yZrElCiZ9yPUpEnVg2Q1ESE8543dSuIgJMszyyh1srq1YE8R1SHmsP6z1WdsOZsIY7x7EaPLpt~GBCZS0TKBNQ691dSzy8i8E6AgSdDwhOYiS~4SNmLQN6y0O-kLUYf80acAp0I42BxIEv4Qifd~iAykCCClPN-h9oMiCa91STu2NA8~U-sExnTJf1jNdIv~Fk7YkoYOlg8UcpEEqqT165M2LMMWuR5juv98JtUYBFHWsbwUENj3fNfOkaMbPM6ZVyYPt24NYqk4qKohquVw__",
-        "ForWho":"Male Only",
-        "name":"Annexe for rent in Nugegoda",
-        "address":"No. 13/A, Rubberwatter Road, Balla Ripu Para, K",
-        "price":12000,
-        "paymentType":"Monthly",
-        "keyMoneyStates":false,
-        "utilityIncluded":true,
-        "tags":[
-                { key: "Bedrooms", value: "2" },
-                { key: "Bathrooms", value: "1" },
-                { key: "Parking", value: "1" },
-            ]
-    },
-    {
-        id:"1",
-        "imageURL":"https://media-hosting.imagekit.io/0a31f74da39d49b7/image%2018.png?Expires=1839726120&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=i117ey6rLljec-ifQLzMii18Ll-bHqZRhFtUiWcdjBQNnnVjGU23IilBBfN~ZP3fv3yZrElCiZ9yPUpEnVg2Q1ESE8543dSuIgJMszyyh1srq1YE8R1SHmsP6z1WdsOZsIY7x7EaPLpt~GBCZS0TKBNQ691dSzy8i8E6AgSdDwhOYiS~4SNmLQN6y0O-kLUYf80acAp0I42BxIEv4Qifd~iAykCCClPN-h9oMiCa91STu2NA8~U-sExnTJf1jNdIv~Fk7YkoYOlg8UcpEEqqT165M2LMMWuR5juv98JtUYBFHWsbwUENj3fNfOkaMbPM6ZVyYPt24NYqk4qKohquVw__",
-        "ForWho":"Male Only",
-        "name":"Annexe for rent in Nugegoda",
-        "address":"No. 13/A, Rubberwatter Road, Balla Ripu Para, K",
-        "price":12000,
-        "paymentType":"Monthly",
-        "keyMoneyStates":false,
-        "utilityIncluded":true,
-        "tags":[
-                { key: "Bedrooms", value: "2" },
-                { key: "Bathrooms", value: "1" },
-                { key: "Parking", value: "1" },
-            ]
-    },
-    {
-        id:"1",
-        "imageURL":"https://media-hosting.imagekit.io/0a31f74da39d49b7/image%2018.png?Expires=1839726120&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=i117ey6rLljec-ifQLzMii18Ll-bHqZRhFtUiWcdjBQNnnVjGU23IilBBfN~ZP3fv3yZrElCiZ9yPUpEnVg2Q1ESE8543dSuIgJMszyyh1srq1YE8R1SHmsP6z1WdsOZsIY7x7EaPLpt~GBCZS0TKBNQ691dSzy8i8E6AgSdDwhOYiS~4SNmLQN6y0O-kLUYf80acAp0I42BxIEv4Qifd~iAykCCClPN-h9oMiCa91STu2NA8~U-sExnTJf1jNdIv~Fk7YkoYOlg8UcpEEqqT165M2LMMWuR5juv98JtUYBFHWsbwUENj3fNfOkaMbPM6ZVyYPt24NYqk4qKohquVw__",
-        "ForWho":"Male Only",
-        "name":"Annexe for rent in Nugegoda",
-        "address":"No. 13/A, Rubberwatter Road, Balla Ripu Para, K",
-        "price":12000,
-        "paymentType":"Monthly",
-        "keyMoneyStates":false,
-        "utilityIncluded":true,
-        "tags":[
-                { key: "Bedrooms", value: "2" },
-                { key: "Bathrooms", value: "1" },
-                { key: "Parking", value: "1" },
-            ]
-    },
-    {
-        id:"1",
-        "imageURL":"https://media-hosting.imagekit.io/0a31f74da39d49b7/image%2018.png?Expires=1839726120&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=i117ey6rLljec-ifQLzMii18Ll-bHqZRhFtUiWcdjBQNnnVjGU23IilBBfN~ZP3fv3yZrElCiZ9yPUpEnVg2Q1ESE8543dSuIgJMszyyh1srq1YE8R1SHmsP6z1WdsOZsIY7x7EaPLpt~GBCZS0TKBNQ691dSzy8i8E6AgSdDwhOYiS~4SNmLQN6y0O-kLUYf80acAp0I42BxIEv4Qifd~iAykCCClPN-h9oMiCa91STu2NA8~U-sExnTJf1jNdIv~Fk7YkoYOlg8UcpEEqqT165M2LMMWuR5juv98JtUYBFHWsbwUENj3fNfOkaMbPM6ZVyYPt24NYqk4qKohquVw__",
-        "ForWho":"Male Only",
-        "name":"Annexe for rent in Nugegoda",
-        "address":"No. 13/A, Rubberwatter Road, Balla Ripu Para, K",
-        "price":12000,
-        "paymentType":"Monthly",
-        "keyMoneyStates":false,
-        "utilityIncluded":true,
-        "tags":[
-                { key: "Bedrooms", value: "2" },
-                { key: "Bathrooms", value: "1" },
-                { key: "Parking", value: "1" },
-            ]
-    },
-    {
-        id:"1",
-        "imageURL":"https://media-hosting.imagekit.io/0a31f74da39d49b7/image%2018.png?Expires=1839726120&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=i117ey6rLljec-ifQLzMii18Ll-bHqZRhFtUiWcdjBQNnnVjGU23IilBBfN~ZP3fv3yZrElCiZ9yPUpEnVg2Q1ESE8543dSuIgJMszyyh1srq1YE8R1SHmsP6z1WdsOZsIY7x7EaPLpt~GBCZS0TKBNQ691dSzy8i8E6AgSdDwhOYiS~4SNmLQN6y0O-kLUYf80acAp0I42BxIEv4Qifd~iAykCCClPN-h9oMiCa91STu2NA8~U-sExnTJf1jNdIv~Fk7YkoYOlg8UcpEEqqT165M2LMMWuR5juv98JtUYBFHWsbwUENj3fNfOkaMbPM6ZVyYPt24NYqk4qKohquVw__",
-        "ForWho":"Male Only",
-        "name":"Annexe for rent in Nugegoda",
-        "address":"No. 13/A, Rubberwatter Road, Balla Ripu Para, K",
-        "price":12000,
-        "paymentType":"Monthly",
-        "keyMoneyStates":false,
-        "utilityIncluded":true,
-        "tags":[
-                { key: "Bedrooms", value: "2" },
-                { key: "Bathrooms", value: "1" },
-                { key: "Parking", value: "1" },
-            ]
-    },
-    {
-        id:"1",
-        "imageURL":"https://media-hosting.imagekit.io/0a31f74da39d49b7/image%2018.png?Expires=1839726120&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=i117ey6rLljec-ifQLzMii18Ll-bHqZRhFtUiWcdjBQNnnVjGU23IilBBfN~ZP3fv3yZrElCiZ9yPUpEnVg2Q1ESE8543dSuIgJMszyyh1srq1YE8R1SHmsP6z1WdsOZsIY7x7EaPLpt~GBCZS0TKBNQ691dSzy8i8E6AgSdDwhOYiS~4SNmLQN6y0O-kLUYf80acAp0I42BxIEv4Qifd~iAykCCClPN-h9oMiCa91STu2NA8~U-sExnTJf1jNdIv~Fk7YkoYOlg8UcpEEqqT165M2LMMWuR5juv98JtUYBFHWsbwUENj3fNfOkaMbPM6ZVyYPt24NYqk4qKohquVw__",
-        "ForWho":"Male Only",
-        "name":"Annexe for rent in Nugegoda",
-        "address":"No. 13/A, Rubberwatter Road, Balla Ripu Para, K",
-        "price":12000,
-        "paymentType":"Monthly",
-        "keyMoneyStates":false,
-        "utilityIncluded":true,
-        "tags":[
-                { key: "Bedrooms", value: "2" },
-                { key: "Bathrooms", value: "1" },
-                { key: "Parking", value: "1" },
-            ]
-    }
-]
+export interface ListingCardProps {
+    id: string;
+    imageURL: string;
+    ForWho: string;
+    name: string;
+    address: string;
+    price: number;
+    paymentType: string;
+    keyMoneyStates: Boolean;
+    utilityIncluded: Boolean;
+    tags: { key: string; value: string }[];
+}
 
-const ListingSection = () => {
+interface ListingSectionProps {
+  listings: ListingCardProps[];
+}
+
+const ListingSection: React.FC<ListingSectionProps> = ({ listings }) => {
   return (
     <section className=" bg-gradient-to-br from-white to-primary/5">
       <div className="max-w-7xl mx-auto px-4">
@@ -162,7 +32,7 @@ const ListingSection = () => {
         </div>
         {/* Cards container */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-10">
-          {plases.map((place,id) => (
+          {listings.map((place,id) => (
                 <ListingCard
                     key={id}
                     id={place.id}
