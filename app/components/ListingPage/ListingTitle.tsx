@@ -16,7 +16,7 @@ export default function ListingTitle({
   views,
 }: ListingTitleProps) {
   return (
-    <div className="p-4 flex flex-col gap-2">
+    <div className="md:px-4 sm:px-4 flex flex-col gap-2 pt-1 pb-4 ">
       <div className="flex justify-between items-start">
         <h1 className="text-3xl font-bold">{title}</h1>
         <button className="text-gray-500 hover:text-gray-700 flex gap-2 items-center">
