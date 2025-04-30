@@ -1,6 +1,7 @@
 'use client';
 import ImageCarousel from '@/app/components/ListingPage/ImageCarousel';
 import ListingTitle from '@/app/components/ListingPage/ListingTitle';
+import PropertyDetails from '@/app/components/ListingPage/PropertyDetails';
 import UserCard from '@/app/components/ListingPage/UserCard';
 import WarningCard from '@/app/components/ListingPage/WarningCard';
 import { useParams } from 'next/navigation';
@@ -29,6 +30,18 @@ const Property = {
   description: 'This is a beautiful annexe for rent in Wijerama Rubber Waththa. It is located in a peaceful area and has all the necessary amenities. The annexe is fully furnished and ready to move in.', 
 }
 
+const propertyInfo = [
+  { key: "Property Type", value: "Annexe" },
+  { key: "Parking Facility", value: "Thinynw" },
+  { key: "For", value: "Couples" },
+  { key: "Furniture", value: "Not furnished" },
+  { key: "Kitchen Facility", value: "Available" },
+];
+
+const desc = `Lorem ipsum dolor sit amet consectetur. Et velit varius ipsum tempor vel dignissim tincidunt. 
+Aliquam accumsan laoreet ultricies tincidunt faucibus fames Augue in sociis. 
+Nisl enim integer neque nec.`;
+
 export default function ListPage() {
   const params = useParams();
   const { id } = params;
@@ -46,6 +59,9 @@ export default function ListPage() {
             />
             <WarningCard/>
           </div>
+        </div>
+        <div className='w-full flex flex-col md:flex-row md:gap-4 sm:gap-4 gap-2 md:pt-4 sm:pt-4 pt-2 md:pl-4 sm:pl-4'>
+          <PropertyDetails details={[...propertyInfo, ...propertyInfo]} description={desc.repeat(3)} />
         </div>
     </div>
   );
