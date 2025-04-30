@@ -1,7 +1,8 @@
 "use client";
 
-import Hero from "./components/Home/Hero";
-import ListingSection from "./components/Home/ListingSection";
+import Hero from "../components/Home/Hero";
+import ListingSection from "../components/Home/ListingSection";
+
 
 export default function HomePage() {
   
