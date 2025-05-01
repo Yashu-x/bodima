@@ -28,6 +28,10 @@ const Property = {
   name: 'Danilka Akarawita',
   phoneNumber: '0771234567',
   description: 'This is a beautiful annexe for rent in Wijerama Rubber Waththa. It is located in a peaceful area and has all the necessary amenities. The annexe is fully furnished and ready to move in.', 
+  mapLocation: {
+    lat: 6.856011,
+    lng: 79.903737,
+  },
 }
 
 const propertyInfo = [
@@ -57,7 +61,7 @@ export default function ListPage() {
           </div>
         </div>
         <div className='w-full flex flex-col md:flex-row md:gap-4 sm:gap-4 gap-2 md:pt-4 sm:pt-4 pt-2 md:pl-4 sm:pl-4'>
-          <PropertyDetails details={[...propertyInfo, ...propertyInfo]} description={Property.description.repeat(3)} />
+          <PropertyDetails details={[...propertyInfo, ...propertyInfo]} description={Property.description.repeat(3)} mapLocation={Property.mapLocation} />
         </div>
     </div>
   );

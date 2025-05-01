@@ -23,6 +23,7 @@ export const dbConnect = async () => {
   if (!mongooseCached.promise) {
     mongooseCached.promise = mongoose.connect(MONGODB_URI, {
       bufferCommands: false,
+       autoIndex: true 
     });
   }
 

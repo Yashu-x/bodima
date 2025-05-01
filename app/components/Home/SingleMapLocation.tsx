@@ -1,0 +1,46 @@
+"use client"
+import React, { useCallback, useState } from 'react'
+import {GoogleMap, Marker, useJsApiLoader} from '@react-google-maps/api'
+
+interface SingleMapLocationProps {
+    lat: number;
+    lng: number;
+}
+
+const SingleMapLocation = ({mapLocation}: {mapLocation:SingleMapLocationProps}) => {
+
+    const containerStyle = {
+        width: '100%',
+        height: '400px',
+        borderRadius: '8px',
+    };
+
+
+
+    const {isLoaded} = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''
+    })
+
+
+  return (
+    <>
+        {isLoaded ? (
+            <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={mapLocation}
+                zoom={17}
+            >
+                <Marker position={mapLocation} />
+            </GoogleMap>
+        ) : <>
+            <div className="flex justify-center items-center h-96">
+                <p className="text-gray-500">Loading...</p>
+            </div>
+        </>}
+        
+    </>
+  )
+}
+
+export default SingleMapLocation
