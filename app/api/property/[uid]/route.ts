@@ -7,7 +7,7 @@ import { z } from "zod";
 import { Types } from "mongoose";
 
 type propertyData = z.infer<typeof PropertySchema>;
-type Params = Promise<{ uid: string }>;
+type Params = { uid: string };
 const RequestBodySchema = z.object({
     propertyId: z.string(),
     updateData: PropertySchema.partial(),
@@ -84,7 +84,7 @@ export async function GET(
             return NextResponse.json({ error: "UID is required" }, { status: 400 });
         }
         
-        const propertyByUserID = await properties.findById({ ownerId: uid }) || [];
+        const propertyByUserID = await properties.find({ ownerId: uid }) || [];
         if (propertyByUserID.length === 0) {
             return NextResponse.json({ message: "No properties found" }, { status: 404 });
         }

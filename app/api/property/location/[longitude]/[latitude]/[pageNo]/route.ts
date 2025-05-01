@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { dbConnect } from "@/lib/db";
 import properties from "@/models/property";
 
-type Params = Promise<{ longitude: number; latitude: number }>;
+type Params = Promise<{ longitude: string; latitude: string,pageNo: string  }>;
 export async function GET(
   request: NextRequest,
   { params }: { params: Params }
@@ -18,9 +18,14 @@ export async function GET(
   }
 
   try {
-    const { longitude, latitude } = await params;
-    console.log("Fetching properties near:", longitude, latitude);
-    if (longitude == 0 || latitude == 0) {
+    const { longitude, latitude,pageNo } = await params;
+    //convert logitude and latitude string to numbers
+    const longitudeNum = parseFloat(longitude);
+    const latitudeNum = parseFloat(latitude);
+    const addsPerPage = 6;
+    const skipCount = (parseInt(pageNo) - 1) * addsPerPage;
+    console.log("Fetching properties near:", longitudeNum, latitudeNum);
+    if (longitudeNum == 0 || latitudeNum == 0) {
       return NextResponse.json(
         { error: "Longitude and latitude are required" },
         { status: 400 }
@@ -33,14 +38,16 @@ export async function GET(
           $near: {
             $geometry: {
               type: "Point",
-              coordinates: [longitude, latitude],
+              coordinates: [longitudeNum, latitudeNum],
             },
-            $maxDistance: 1000, 
+            $maxDistance: 5000000, 
           },
         },
       })
-      .limit(10)
+      .skip(skipCount)
+      .limit(addsPerPage)
       .exec();
+      
     if (!nearProperties) {
       return NextResponse.json(
         { error: "No properties found" },

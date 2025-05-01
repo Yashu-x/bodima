@@ -92,15 +92,15 @@ const propertySchema = new Schema(
     occupantType: {
       type: String,
       enum: [
-        " Anyone",
-        " A Couple",
-        " A Family",
-        " Female Job Holders",
-        " Female Only",
-        " Female Student",
-        " Male Job Holders",
-        " Male Only",
-        " Male Student",
+        "Anyone",
+        "A Couple",
+        "A Family",
+        "Female Job Holders",
+        "Female Only",
+        "Female Student",
+        "Male Job Holders",
+        "Male Only",
+        "Male Student",
       ],
       required: true,
     },
@@ -140,7 +140,7 @@ const propertySchema = new Schema(
     adState: {
       type: String,
       enum: ["Active", "Pending", "Cancel"],
-      default: "pending",
+      default: "Pending",
     },
     options: { type: String },
   },
@@ -149,5 +149,5 @@ const propertySchema = new Schema(
 
 propertySchema.index({ location: "2dsphere" });
 
-export default mongoose.models.Property ||
+export default mongoose.models.properties ||
   mongoose.model("properties", propertySchema);
