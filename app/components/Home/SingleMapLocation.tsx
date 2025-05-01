@@ -29,7 +29,7 @@ const SingleMapLocation = ({mapLocation}: {mapLocation:SingleMapLocationProps}) 
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={mapLocation}
-                zoom={10}
+                zoom={17}
             >
                 <Marker position={mapLocation} />
             </GoogleMap>

@@ -29,8 +29,8 @@ const Property = {
   phoneNumber: '0771234567',
   description: 'This is a beautiful annexe for rent in Wijerama Rubber Waththa. It is located in a peaceful area and has all the necessary amenities. The annexe is fully furnished and ready to move in.', 
   mapLocation: {
-    lat: 6.9271,
-    lng: 79.9585,
+    lat: 6.856011,
+    lng: 79.903737,
   },
 }
 
