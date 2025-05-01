@@ -1,6 +1,6 @@
 "use client"
 import React, { useCallback, useState } from 'react'
-import {GoogleMap, useJsApiLoader} from '@react-google-maps/api'
+import {GoogleMap, Marker, useJsApiLoader} from '@react-google-maps/api'
 
 interface SingleMapLocationProps {
     lat: number;
@@ -43,6 +43,7 @@ const SingleMapLocation = ({mapLocation}: {mapLocation:SingleMapLocationProps}) 
                 onUnmount={onUnmount}
 
             >
+                <Marker position={mapLocation} />
             </GoogleMap>
         ) : <>
             <div className="flex justify-center items-center h-96">
