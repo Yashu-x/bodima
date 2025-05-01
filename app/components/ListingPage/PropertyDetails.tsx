@@ -1,4 +1,5 @@
 import React from "react";
+import SingleMapLocation from "../Home/SingleMapLocation";
 
 type PropertyDetail = {
   key: string;
@@ -8,9 +9,13 @@ type PropertyDetail = {
 type PropertyDetailsProps = {
   details: PropertyDetail[];
   description: string;
+  mapLocation: {
+    lat: number;
+    lng: number;
+  };
 };
 
-const PropertyDetails: React.FC<PropertyDetailsProps> = ({ details, description }) => {
+const PropertyDetails: React.FC<PropertyDetailsProps> = ({ details, description, mapLocation }) => {
   // Split the details array in half for two columns
   const midIndex = Math.ceil(details.length / 2);
   const leftDetails = details.slice(0, midIndex);
@@ -38,6 +43,10 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({ details, description 
         <h2 className="text-lg font-semibold mb-2">Description</h2>
         <p className="whitespace-pre-line text-justify text-justify-auto">{description}</p>
       </div>
+      <div>
+        <h2 className="text-lg font-semibold mb-2">Location</h2>
+        <SingleMapLocation mapLocation={mapLocation}/>
+        </div>
     </div>
   );
 };
