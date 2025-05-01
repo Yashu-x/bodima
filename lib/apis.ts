@@ -49,9 +49,10 @@ export const updateProperty = async (
 };
 
 export const getNearProperties = async (
-  longitude: number,
-  latitude: number
+  longitude: string,
+  latitude: string,
+  pageNo: string
 ) => {
-  const response = await fetch(`/api/property/${longitude}/${latitude}`);
+  const response = await fetch(`/api/property/${longitude}/${latitude}/${pageNo}`);
   return response.json();
 };
