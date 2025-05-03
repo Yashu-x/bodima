@@ -76,7 +76,7 @@ const propertySchema = new Schema(
   {
     title: { type: String, required: true },
     ownerId: { type: String, required: true },
-
+  
     mainImage: { type: String },
     subImages: [{ type: String }],
     description: { type: String, required: true },
@@ -111,7 +111,7 @@ const propertySchema = new Schema(
       required: true,
     },
 
-    locationName: { type: String },
+    Address: { type: String },
     specificLocation: { type: String },
     nearestTown: { type: String },
 
