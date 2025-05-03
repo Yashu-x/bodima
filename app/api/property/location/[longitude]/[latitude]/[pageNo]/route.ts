@@ -35,7 +35,7 @@ export async function GET(
       );
     }
 
-    const nearProperties: propertyData[] = await properties
+    const nearProperties = await properties
       .find({
         location: {
           $near: {
@@ -78,6 +78,7 @@ export async function GET(
       isUtitilityIncluded: property.isUtitilityIncluded,
       keyMoney: property.keyMoney,
       occupantType: property.occupantType,
+      paymentMethod: property.paymentMethod
     }));
     return NextResponse.json({ properties: responseObject ,totalPages:totalPages }, { status: 200 });
   } catch (error) {
