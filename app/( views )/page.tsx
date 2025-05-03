@@ -16,37 +16,24 @@ export default function HomePage() {
   const handleSearch = async ({ type, range, area }: SearchParams) => {
     console.log("Search params:", { type, range, area });
   }
-  
-  // delete this part after set api calls
-  useEffect(() => {
-    setResults([
-      {
-        id: "1",
-        imageURL: " ",
-        ForWho: "Students",
-        name: "Cozy Room in Nugegoda",
-        address: "123 Main St, Nugegoda",
-        price: 15000,
-        paymentType: "Monthly",
-        keyMoneyStates: true,
-        utilityIncluded: true,
-        tags: [
-          { key: "Rooms", value: "2" },
-          { key: "Baths", value: "1" },
-          { key: "Parking", value: "Yes" },
-        ],
-      },
-    ]);
-  }, []);
 
   const { isPending, isError, data, error } = useQuery(
     getNearPropertiesByLongitudeLatitude("-110", "40", "1")
   );
   console.log("isPending", isPending);
   console.log("isError", isError);
-  console.log("data", data);
+  console.log("data", data?.properties);
   console.log("error", error);
 
+
+  if(isPending){
+
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-2xl font-bold">Loading...</h1>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -54,7 +41,7 @@ export default function HomePage() {
         <Hero onSearch={handleSearch} />
       </div>
       <div>
-        <ListingSection listings={results} />
+        <ListingSection listings={data?.properties || []} />
       </div>
     </div>
   );

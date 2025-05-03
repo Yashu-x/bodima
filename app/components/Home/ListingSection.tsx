@@ -4,12 +4,12 @@ import ListingCard from './ListingCard';
 export interface ListingCardProps {
     id: string;
     mainImage: string;
-    ForWho: string;
-    name: string;
+    occupantType: string;
+    title: string;
     address: string;
-    price: number;
-    paymentType: string;
-    keyMoneyStates: Boolean;
+    fee: number;
+    paymentMethod: string;
+    keyMoney: number;
     isUtitilityIncluded: Boolean;
     tags: { key: string; value: string }[];
 }
@@ -36,14 +36,15 @@ const ListingSection: React.FC<ListingSectionProps> = ({ listings }) => {
                 <ListingCard
                     key={id}
                     id={place.id}
-                    imageURL={place.imageURL}
-                    ForWho={place.ForWho}
-                    name={place.name}
-                    address={place.address}
-                    price={place.price}
-                    paymentType={place.paymentType}
-                    keyMoneyStates={place.keyMoneyStates}
-                    utilityIncluded={place.utilityIncluded}
+                    imageURL={place.mainImage}
+                    ForWho={place.occupantType}
+                    name={place.title}
+                    // address={place.address}
+                    address={"afsdfsdfsfsfsdf"}
+                    price={place.fee}
+                    paymentType={place.paymentMethod}
+                    keyMoneyStates={place.keyMoney > 0 ? true : false}
+                    utilityIncluded={place.isUtitilityIncluded}
                     tags={place.tags}
                 />
             ))}
