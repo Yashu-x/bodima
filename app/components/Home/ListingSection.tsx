@@ -39,8 +39,7 @@ const ListingSection: React.FC<ListingSectionProps> = ({ listings }) => {
                     imageURL={place.mainImage}
                     ForWho={place.occupantType}
                     name={place.title}
-                    // address={place.address}
-                    address={"afsdfsdfsfsfsdf"}
+                    address={place.address}
                     price={place.fee}
                     paymentType={place.paymentMethod}
                     keyMoneyStates={place.keyMoney > 0 ? true : false}

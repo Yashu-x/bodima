@@ -16,7 +16,7 @@ export default function HomePage() {
   }
 
   const { isPending, isError, data, error } = useQuery(
-    getNearPropertiesByLongitudeLatitude("-110", "40", "1")
+    getNearPropertiesByLongitudeLatitude("79", "6", "1")
   );
 
   if(isPending){
