@@ -45,7 +45,12 @@ const ListingSection: React.FC<ListingSectionProps> = ({ listings }) => {
                     paymentType={place.paymentMethod}
                     keyMoneyStates={place.keyMoney > 0 ? true : false}
                     utilityIncluded={place.isUtitilityIncluded}
-                    tags={place.tags}
+                    // tags={place.tags}
+                    tags={[
+                      { key: 'Parking', value: 'Parking' },
+                      { key: 'Kitchen', value: 'Kitchen' },
+                      { key: 'AC', value: 'AC' },
+                    ]}
                 />
             ))}
         </div>

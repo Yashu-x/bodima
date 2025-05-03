@@ -11,8 +11,6 @@ import { getNearPropertiesByLongitudeLatitude } from "@/lib/queryOptions";
 
 export default function HomePage() {
 
-  const [results, setResults] = useState<any[]>([])
-
   const handleSearch = async ({ type, range, area }: SearchParams) => {
     console.log("Search params:", { type, range, area });
   }
@@ -20,17 +18,19 @@ export default function HomePage() {
   const { isPending, isError, data, error } = useQuery(
     getNearPropertiesByLongitudeLatitude("-110", "40", "1")
   );
-  console.log("isPending", isPending);
-  console.log("isError", isError);
-  console.log("data", data?.properties);
-  console.log("error", error);
-
 
   if(isPending){
-
     return (
       <div className="flex justify-center items-center h-screen">
         <h1 className="text-2xl font-bold">Loading...</h1>
+      </div>
+    );
+  }
+
+  if(isError){
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-2xl font-bold">Error</h1>
       </div>
     );
   }
