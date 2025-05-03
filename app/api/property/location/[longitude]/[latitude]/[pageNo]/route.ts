@@ -43,8 +43,9 @@ export async function GET(
               type: "Point",
               coordinates: [longitudeNum, latitudeNum],
             },
-            $maxDistance: 500000, 
+            $maxDistance: 50000, 
           },
+          adState: "Active",
         },
       })
       

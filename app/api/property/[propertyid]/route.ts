@@ -49,6 +49,7 @@ export async function GET(
             fee: propertyByID.Fee,
             address: propertyByID.Address,
             mainImage: propertyByID.mainImage,
+            subImages: propertyByID.subImages,
             isUtitilityIncluded: propertyByID.isUtitilityIncluded,
             keyMoney: propertyByID.keyMoney,
             occupantType: propertyByID.occupantType,
