@@ -2,12 +2,11 @@
 
 import { useState } from "react"
 import { signIn } from "next-auth/react"
-import { useSearchParams, useRouter } from "next/navigation"
+import { useSearchParams} from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function LoginPage() {
-  const router = useRouter()
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get("callbackUrl") || "/"
   const [isLoading, setIsLoading] = useState(false)

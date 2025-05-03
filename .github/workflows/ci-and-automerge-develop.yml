@@ -1,0 +1,53 @@
+name: CI & Auto‑merge to develop
+
+on:
+  # Ignore direct pushes to main or Dev
+  push:
+    branches-ignore:
+      - main
+      - Dev
+
+  # Run only when PRs target Dev
+  pull_request:
+    branches:
+      - Dev
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Placeholder Test (no real tests yet)
+        run: echo "No tests defined" && exit 0
+
+  automerge:
+    name: Enable Auto‑merge
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Enable Pull Request Auto‑merge
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+          merge-method: merge

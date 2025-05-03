@@ -1,6 +1,7 @@
 //Add all the apis in here
 // for TypeScript safety add retun type to the function
 
+import { ListingCardProps } from "@/app/components/Home/ListingSection";
 import { PropertySchema } from "@/validateSchemas/propertySchema";
 import { z } from "zod";
 
@@ -57,7 +58,12 @@ export const getNearProperties = async (
   longitude: string,
   latitude: string,
   pageNo: string
-) => {
+):Promise<getNearProperties> => {
   const response = await fetch(`/api/property/location/${longitude}/${latitude}/${pageNo}`);
   return response.json();
 };
+
+type getNearProperties={
+  properties:ListingCardProps[],
+  totalPages:number,
+}
