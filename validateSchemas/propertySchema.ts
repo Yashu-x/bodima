@@ -27,7 +27,7 @@ export const PropertySchema = z.object({
     'shared room',
     'single room',
   ]),
-  locationName: z.string(),
+  Address: z.string(),
   specificLocation: z.string(),
   nearestTown: z.string(),
   location: z.object({
