@@ -52,7 +52,15 @@ export const getNearProperties = async (
   longitude: string,
   latitude: string,
   pageNo: string
-) => {
-  const response = await fetch(`/api/property/${longitude}/${latitude}/${pageNo}`);
+):Promise<Property[]> => {
+  const response = await fetch(`/api/property/location/${longitude}/${latitude}/${pageNo}`);
   return response.json();
+};
+
+type Property = {
+  title: string;
+  fee: number;
+  isUtitilityIncluded: boolean;
+  keyMoney: number;
+  occupantType: string;
 };

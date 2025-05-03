@@ -5,6 +5,8 @@ import Hero from "../components/Home/Hero";
 import ListingSection from "../components/Home/ListingSection";
 import { SearchParams } from "../components/Home/SearchBar";
 import { set } from "mongoose";
+import { useQuery } from "@tanstack/react-query";
+import { getNearPropertiesByLongitudeLatitude } from "@/lib/queryOptions";
 
 
 export default function HomePage() {
@@ -36,6 +38,15 @@ export default function HomePage() {
       },
     ]);
   }, []);
+
+  const { isPending, isError, data, error } = useQuery(
+    getNearPropertiesByLongitudeLatitude("-110", "40", "1")
+  );
+  console.log("isPending", isPending);
+  console.log("isError", isError);
+  console.log("data", data);
+  console.log("error", error);
+
 
   return (
     <div>

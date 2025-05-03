@@ -1,9 +1,9 @@
 import { queryOptions } from '@tanstack/react-query'
-import { getTodosById } from '@/lib/apis'
+import { getNearProperties } from './apis'
 
-export const  getTodosByIdQuery = (id:number) => {
+export const getNearPropertiesByLongitudeLatitude = (longitude:string, latitude:string, pageNo:string) => {
     return queryOptions({
-        queryKey:['todos', id],
-        queryFn: () => getTodosById(id)
+        queryKey:['property', longitude, latitude, pageNo],
+        queryFn: () => getNearProperties(longitude, latitude, pageNo)
     })
 }

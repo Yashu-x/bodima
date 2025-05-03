@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { dbConnect } from "@/lib/db";
-import properties from "@/models/property";
+import properties from "@/models/Property";
 import { PropertySchema } from "@/validateSchemas/propertySchema";
 import { z } from "zod";
 

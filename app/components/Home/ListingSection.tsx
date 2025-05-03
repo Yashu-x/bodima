@@ -3,14 +3,14 @@ import ListingCard from './ListingCard';
 
 export interface ListingCardProps {
     id: string;
-    imageURL: string;
+    mainImage: string;
     ForWho: string;
     name: string;
     address: string;
     price: number;
     paymentType: string;
     keyMoneyStates: Boolean;
-    utilityIncluded: Boolean;
+    isUtitilityIncluded: Boolean;
     tags: { key: string; value: string }[];
 }
 
