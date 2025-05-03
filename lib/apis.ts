@@ -8,7 +8,7 @@ import { z } from "zod";
 type propertyData = z.infer<typeof PropertySchema>;
 
 export const createPost = async (data: propertyData, uid: string) => {
-  const response = await fetch("/api/property/" + uid, {
+  const response = await fetch("/api/property/user" + uid, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -18,13 +18,18 @@ export const createPost = async (data: propertyData, uid: string) => {
   return response.json();
 };
 
-export const getPropertiesByID = async (uid: string) => {
-  const response = await fetch("/api/property/" + uid);
+export const getPropertiesByUserID = async (uid: string) => {
+  const response = await fetch("/api/property/user" + uid);
   return response.json();
 };
 
+export const getPropertiesByPropertyID = async (propertyId: string) => {
+  const response = await fetch("/api/property/" + propertyId);
+  return response.json();
+}
+
 export const deleteProperty = async (uid: string, propertyId: string) => {
-  const response = await fetch("/api/property/" + uid, {
+  const response = await fetch("/api/property/user" + uid, {
     method: "DELETE",
     body: JSON.stringify({ propertyId }),
     headers: {
@@ -39,7 +44,7 @@ export const updateProperty = async (
   propertyId: string,
   updateData: propertyData
 ) => {
-  const response = await fetch("/api/property/" + uid, {
+  const response = await fetch("/api/property/user" + uid, {
     method: "PUT",
     body: JSON.stringify({ propertyId, updateData }),
     headers: {

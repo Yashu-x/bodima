@@ -9,7 +9,7 @@ export const PropertySchema = z.object({
   Fee: z.number().positive(),
   keyMoney: z.number().positive(),
   isUtitilityIncluded: z.boolean().default(false),
-  paymentMethod: z.enum(['Monthly', 'Yearly', 'Every 3 months']),
+  paymentMethod: z.enum(['monthly', 'yearly', 'Every 3 months']),
   occupantType: z.enum([
     "Anyone",
     "A Couple",
