@@ -43,9 +43,27 @@ export async function GET(
                 { status: 404 }
             );
         }
+        const responseObject = {
+            id: propertyid,
+            title: propertyByID.title,
+            fee: propertyByID.Fee,
+            address: propertyByID.Address,
+            mainImage: propertyByID.mainImage,
+            isUtitilityIncluded: propertyByID.isUtitilityIncluded,
+            keyMoney: propertyByID.keyMoney,
+            occupantType: propertyByID.occupantType,
+            paymentMethod: propertyByID.paymentMethod,
+            propertyType: propertyByID.propertyType,
+            description: propertyByID.description,
+            specificLocation: propertyByID.specificLocation,
+            nearestTown: propertyByID.nearestTown,
+            tags: propertyByID.tags,
+            contactNumber: propertyByID.contactNumber,
+            adState: propertyByID.adState,
+            options: propertyByID.options
+        };
 
-        console.log("Fetched Property:", propertyByID);
-        return NextResponse.json(propertyByID, { status: 200 });
+        return NextResponse.json(responseObject, { status: 200 });
     } catch (error) {
         console.error("Error fetching propertyDetails:", error);
 
