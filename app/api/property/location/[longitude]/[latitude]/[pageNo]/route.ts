@@ -70,6 +70,7 @@ export async function GET(
       );
     }
     const responseObject= nearProperties.map(property => ({
+      id:property._id,
       title: property.title,
       fee: property.Fee,
       address: property.Address,
