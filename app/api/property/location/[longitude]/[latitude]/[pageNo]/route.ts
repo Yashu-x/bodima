@@ -1,8 +1,11 @@
 import { NextResponse, NextRequest } from "next/server";
 import { dbConnect } from "@/lib/db";
-import properties from "@/models/property";
+import properties from "@/models/Property";
+import { PropertySchema } from "@/validateSchemas/propertySchema";
+import { z } from "zod";
 
 type Params = Promise<{ longitude: string; latitude: string,pageNo: string  }>;
+type propertyData = z.infer<typeof PropertySchema>;
 export async function GET(
   request: NextRequest,
   { params }: { params: Params }
@@ -40,13 +43,25 @@ export async function GET(
               type: "Point",
               coordinates: [longitudeNum, latitudeNum],
             },
-            $maxDistance: 5000000, 
+            $maxDistance: 500000, 
           },
         },
       })
+      
       .skip(skipCount)
       .limit(addsPerPage)
       .exec();
+
+      const totalPropertiesCount = await properties.countDocuments({
+        location: {
+          $geoWithin: {
+            $centerSphere: [[longitudeNum, latitudeNum], 500000 / 6378137], // radius in radians
+          },
+        },
+      });
+      
+
+      const totalPages = Math.ceil(totalPropertiesCount / addsPerPage);
       
     if (!nearProperties) {
       return NextResponse.json(
@@ -54,7 +69,18 @@ export async function GET(
         { status: 404 }
       );
     }
-    return NextResponse.json({ nearProperties }, { status: 200 });
+    const responseObject= nearProperties.map(property => ({
+      id:property._id,
+      title: property.title,
+      fee: property.Fee,
+      address: property.Address,
+      mainImage: property.mainImage,
+      isUtitilityIncluded: property.isUtitilityIncluded,
+      keyMoney: property.keyMoney,
+      occupantType: property.occupantType,
+      paymentMethod: property.paymentMethod
+    }));
+    return NextResponse.json({ properties: responseObject ,totalPages:totalPages }, { status: 200 });
   } catch (error) {
     console.error("Error fetching propertyDetails :", error);
 

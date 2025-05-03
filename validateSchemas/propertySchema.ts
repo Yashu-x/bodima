@@ -9,7 +9,7 @@ export const PropertySchema = z.object({
   Fee: z.number().positive(),
   keyMoney: z.number().positive(),
   isUtitilityIncluded: z.boolean().default(false),
-  paymentMethod: z.enum(['monthly', 'yearly', 'Every 3 months']),
+  paymentMethod: z.enum(['Monthly', 'Yearly', 'Every 3 months']),
   occupantType: z.enum([
     "Anyone",
     "A Couple",
@@ -27,7 +27,7 @@ export const PropertySchema = z.object({
     'shared room',
     'single room',
   ]),
-  locationName: z.string(),
+  Address: z.string(),
   specificLocation: z.string(),
   nearestTown: z.string(),
   location: z.object({
