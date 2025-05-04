@@ -14,15 +14,15 @@ function Header() {
       ) : (
         <>
           <div className="flex items-center space-x-4">
-            <Avatar className="w-16 h-16 border-4 border-primary">
+            <Avatar className="w-24 h-24 border-4 border-primary">
               <AvatarImage src={session?.user.image || ""} alt="Profile" />
               <AvatarFallback className="text-black">
                 {session?.user.name}
               </AvatarFallback>
             </Avatar>
             <div>
-              <div className="text-lg font-semibold">{session?.user.name}</div>
-              <div className="text-sm text-gray-300">{session?.user.email}</div>
+              <div className="text-xl font-semibold">{session?.user.name}</div>
+              <div className="text-m text-gray-300">{session?.user.email}</div>
             </div>
           </div>
           <Button
