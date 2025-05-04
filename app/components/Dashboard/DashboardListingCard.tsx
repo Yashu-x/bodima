@@ -81,21 +81,3 @@ const DashboardListingCard: React.FC<DashboardListingCardProps> = ({
 };
 
 export default DashboardListingCard;
-
-{/* <DashboardListingCard
-            imageUrl="/your-image-path.png"
-            title="Cozy Room in Nugegoda"
-            toWho="Students"
-            details={[
-                { key: "Rooms", value: "2" },
-                { key: "Baths", value: "1" },
-                { key: "Parking", value: "Yes" },
-            ]}
-            address="123 Main St, Nugegoda"
-            price="LKR. 15,000"
-            paymentMethod="Monthly"
-            id="ad123"
-            views={123}
-            createdDate="25/04/2025"
-            onDelete={(id) => alert(`Delete ad ${id}`)}
-        /> */}
