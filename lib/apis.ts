@@ -23,9 +23,28 @@ export const getPropertiesByUserID = async (uid: string) => {
   return response.json();
 };
 
-export const getPropertiesByPropertyID = async (propertyId: string) => {
+export const getPropertiesByPropertyID = async (
+  propertyId: string
+):Promise<getPropertiesByPropertyID> => {
   const response = await fetch("/api/property/" + propertyId);
   return response.json();
+}
+
+type getPropertiesByPropertyID={
+  id:string,
+  title:string,
+  fee:number,
+  address:string,
+  mainImage:string,
+  isUtitilityIncluded:boolean,
+  keyMoney:number,
+  occupantType:string,
+  paymentMethod:string,
+  propertyType:string,
+  description:string,
+  specificLocation:string,
+  nearestTown:string,
+  contactNumber:string,
 }
 
 export const deleteProperty = async (uid: string, propertyId: string) => {
