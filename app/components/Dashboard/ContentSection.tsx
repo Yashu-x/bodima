@@ -33,20 +33,22 @@ function ContentSection({ data }: ContentSectionProps)  {
                 <div className="flex items-center justify-center w-8 h-8 bg-gray-200 rounded-full text-gray-700 font-semibold mr-4 text-center">
                   {index + 1}
                 </div>
-                <DashboardListingCard 
-                  key={index}
-                  imageUrl={item.imageUrl}
-                  title={item.title}
-                  toWho={item.toWho}
-                  details={item.details}
-                  address={item.address}
-                  price={item.price}
-                  paymentMethod={item.paymentMethod}
-                  id={item.id}
-                  views={item.views}
-                  createdDate={item.createdDate}
-                  onDelete={item.onDelete}
-                />
+                <div>
+                  <DashboardListingCard 
+                    key={index}
+                    imageUrl={item.imageUrl}
+                    title={item.title}
+                    toWho={item.toWho}
+                    details={item.details}
+                    address={item.address}
+                    price={item.price}
+                    paymentMethod={item.paymentMethod}
+                    id={item.id}
+                    views={item.views}
+                    createdDate={item.createdDate}
+                    onDelete={item.onDelete}
+                  />
+                </div>
               </div>
             ))}
           </div>

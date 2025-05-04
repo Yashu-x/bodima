@@ -1,18 +1,25 @@
-import React from "react";
+"use client"
+
+import type React from "react"
+import { Eye, Calendar, MapPin } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 type DashboardListingCardProps = {
-  imageUrl: string;
-  title: string;
-  toWho: string;
-  details: { key: string; value: string }[];
-  address: string;
-  price: string;
-  paymentMethod: string;
-  id: string;
-  views: number;
-  createdDate: string;
-  onDelete?: (id: string) => void;
-};
+  imageUrl: string
+  title: string
+  toWho: string
+  details: { key: string; value: string }[]
+  address: string
+  price: string
+  paymentMethod: string
+  id: string
+  views: number
+  createdDate: string
+  onDelete?: (id: string) => void
+  className?: string
+}
 
 const DashboardListingCard: React.FC<DashboardListingCardProps> = ({
   imageUrl,
@@ -26,58 +33,69 @@ const DashboardListingCard: React.FC<DashboardListingCardProps> = ({
   views,
   createdDate,
   onDelete,
-
+  className,
 }) => {
   return (
-    <div className="flex items-center bg-white shadow-md rounded-xl p-4 max-w-3xl">
-      {/* Image */}
-      <div className="w-32 h-32 flex-shrink-0 rounded-lg overflow-hidden">
-        <img src={imageUrl} alt="Property" className="w-full h-full object-cover" />
-      </div>
+    <div className={cn("overflow-hidden w-full", className)}>
+      <div className="p-0 border-2 rounded-lg border-muted bg-card hover:bg-card/80 transition-all duration-300 ease-in-out">
+        <div className="flex flex-col md:flex-row w-full">
+          {/* Image - Full width on mobile, fixed width on desktop */}
+          <div className="w-full md:w-40 h-48 md:h-full flex-shrink-0">
+            <img src={imageUrl || "/placeholder.svg"} alt={title} className="w-full h-full object-cover" />
+          </div>
 
-      {/* Content */}
-      <div className="flex-grow px-4">
-        {/* Title */}
-        <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
+          {/* Content area */}
+          <div className="flex flex-col md:flex-row flex-grow p-4 gap-4">
+            {/* Main content */}
+            <div className="flex-grow space-y-2">
+              <h2 className="text-lg font-semibold text-foreground line-clamp-2">{title}</h2>
 
-        {/* Badge + details */}
-        <div className="flex flex-wrap gap-2 text-sm text-gray-600 mt-1">
-          <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-xs font-medium">
-            {toWho}
-          </span>
-          {details.map((item, idx) => (
-            <span key={idx}>
-              {item.key}: {item.value}
-            </span>
-          ))}
+              <div className="flex flex-wrap gap-2 items-center">
+                <Badge variant="secondary" className="text-xs">
+                  {toWho}
+                </Badge>
+
+                <div className="flex flex-wrap gap-x-3 gap-y-1 text-sm text-muted-foreground">
+                  {details.map((item, idx) => (
+                    <span key={idx} className="whitespace-nowrap">
+                      <span className="font-medium">{item.key}:</span> {item.value}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex items-center text-sm text-muted-foreground">
+                <MapPin className="h-3.5 w-3.5 mr-1 flex-shrink-0" />
+                <span className="line-clamp-1">{address}</span>
+              </div>
+
+              <p className="text-primary font-semibold">
+                {price}/{paymentMethod}
+              </p>
+            </div>
+
+            {/* Meta and actions - Right aligned on desktop, bottom on mobile */}
+            <div className="flex flex-row md:flex-col justify-between md:justify-start items-end md:items-end md:text-right space-y-0 md:space-y-2 pt-2 md:pt-0 border-t md:border-t-0 mt-2 md:mt-0">
+              <div className="space-y-1 text-sm text-muted-foreground">
+                <div className="flex items-center md:justify-end gap-1">
+                  <Eye className="h-3.5 w-3.5" />
+                  <span>{views}</span>
+                </div>
+                <div className="flex items-center md:justify-end gap-1">
+                  <Calendar className="h-3.5 w-3.5" />
+                  <span>{createdDate}</span>
+                </div>
+              </div>
+
+              <Button variant="destructive" size="sm" onClick={() => onDelete?.(id)} className="mt-2 md:mt-auto">
+                DELETE AD
+              </Button>
+            </div>
+          </div>
         </div>
-
-        {/* Address */}
-        <p className="text-sm text-gray-500 mt-2">{address}</p>
-
-        {/* Price */}
-        <p className="text-orange-600 font-semibold text-md mt-1">
-          {price}/{paymentMethod}
-        </p>
-      </div>
-
-      {/* Meta and actions */}
-      <div className="text-sm text-right space-y-2">
-        <p>
-          <span className="font-medium">Views</span>: {views}
-        </p>
-        <p>
-          <span className="font-medium">Post On</span>: {createdDate}
-        </p>
-        <button
-          className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-1.5 rounded-md"
-          onClick={() => onDelete?.(id)}
-        >
-          DELETE AD
-        </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DashboardListingCard;
+export default DashboardListingCard
