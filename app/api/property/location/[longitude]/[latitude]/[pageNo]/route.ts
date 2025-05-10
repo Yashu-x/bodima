@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { dbConnect } from "@/lib/db";
-import properties from "@/models/Property";
+import properties from "@/models/property";
 import { PropertySchema } from "@/validateSchemas/propertySchema";
 import { z } from "zod";
 
@@ -45,10 +45,10 @@ export async function GET(
             },
             $maxDistance: 50000, 
           },
-          adState: "Active",
+          
         },
+        adState: "Active",
       })
-      
       .skip(skipCount)
       .limit(addsPerPage)
       .exec();
@@ -79,7 +79,10 @@ export async function GET(
       isUtitilityIncluded: property.isUtitilityIncluded,
       keyMoney: property.keyMoney,
       occupantType: property.occupantType,
-      paymentMethod: property.paymentMethod
+      paymentMethod: property.paymentMethod,
+      longitude: property.location.coordinates[0],
+      latitude: property.location.coordinates[1],
+      pageCount: totalPages
     }));
     return NextResponse.json({ properties: responseObject ,totalPages:totalPages }, { status: 200 });
   } catch (error) {

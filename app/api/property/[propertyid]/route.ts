@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { dbConnect } from "@/lib/db";
 import properties from "@/models/property";
+import user from "@/models/user";
 import { PropertySchema } from "@/validateSchemas/propertySchema";
 import { getCurrentUser } from "@/lib/auth";
 import { z } from "zod";
@@ -43,6 +44,8 @@ export async function GET(
                 { status: 404 }
             );
         }
+
+        
         const responseObject = {
             id: propertyid,
             title: propertyByID.title,
