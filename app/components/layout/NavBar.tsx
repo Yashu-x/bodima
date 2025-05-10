@@ -1,15 +1,19 @@
-"use client"
-import { Button } from '@/components/ui/button'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { LogOut, Menu } from 'lucide-react';
-import { signOut, useSession } from 'next-auth/react';
-import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
-import DotsLoader from './DotsLoader';
+"use client";
+import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { LogOut, Menu } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import DotsLoader from "./DotsLoader";
 
 function NavBar() {
   const pathname = usePathname();
-  const { data: session,status } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -18,7 +22,7 @@ function NavBar() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Left - Logo and Back Button */}
         <div className="flex items-center space-x-3">
-          {pathname !== '/' && (
+          {pathname !== "/" && (
             <div className="pr-2">
               <a href="/" className="hover:text-primary transition-colors">
                 <svg
@@ -58,43 +62,86 @@ function NavBar() {
 
         {/* Center - Nav Links (desktop) */}
         <ul className="hidden md:flex space-x-6 text-gray-600 font-medium">
-          <li><a href="/" className="hover:text-primary transition-colors">Home</a></li>
-          <li><a href="/about-us" className="hover:text-primary transition-colors">About Us</a></li>
-          <li><a href="/contact-us" className="hover:text-primary transition-colors">Contact Us</a></li>
+          <li>
+            <a href="/" className="hover:text-primary transition-colors">
+              Home
+            </a>
+          </li>
+          <li>
+            <a
+              href="/about-us"
+              className="hover:text-primary transition-colors"
+            >
+              About Us
+            </a>
+          </li>
+          <li>
+            <a
+              href="/contact-us"
+              className="hover:text-primary transition-colors"
+            >
+              Contact Us
+            </a>
+          </li>
         </ul>
 
         {/* Right - Auth Buttons */}
         <div className="hidden md:flex items-center space-x-2">
-          {status === 'loading' ? <><DotsLoader/></>
-          : session ? (
+          {status === "loading" ? (
+            <>
+              <DotsLoader />
+            </>
+          ) : session ? (
             <div className="flex items-center gap-4">
-                <Popover>
-                    <PopoverTrigger>{session.user?.image ? (
-                        <img
-                        src={session.user.image}
-                        alt={session.user.name || "User"}
-                        className="w-8 h-8 rounded-full"
-                        />
-                    ) : (
-                        <div className="w-8 h-8 bg-gray-100 rounded-full" />
-                    )}
-                    </PopoverTrigger>
-                    <PopoverContent>
-                        <Button
-                            variant="outline"
-                            className="border-primary text-primary hover:bg-primary hover:text-background transition-colors w-full"
-                            onClick={() => signOut()}
-                        >
-                            <LogOut className="w-4 h-4 mr-2" />
-                            Sign out
-                        </Button>
-                    </PopoverContent>
-                </Popover>
+              <Popover>
+                <PopoverTrigger>
+                  {session.user?.image ? (
+                    <img
+                      src={session.user.image}
+                      alt={session.user.name || "User"}
+                      className="w-8 h-8 rounded-full"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 bg-gray-100 rounded-full" />
+                  )}
+                </PopoverTrigger>
+                <PopoverContent>
+                  <Button
+                    variant="outline"
+                    className="border-primary text-primary hover:bg-primary hover:text-background transition-colors w-full"
+                    onClick={() => signOut()}
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign out
+                  </Button>
+                </PopoverContent>
+              </Popover>
+              <p className="text-gray-700">{session.user?.name}</p>
+              <Button
+                className="ml-2"
+                onClick={() => {
+                  router.push("/dashboard");
+                }}
+              >
+                Watch your Ads
+              </Button>
             </div>
           ) : (
             <>
-              <Button variant="outline" onClick={() => router.push('/login')} className="border-primary text-primary hover:bg-primary hover:text-background">Login</Button>
-              <Button variant="outline" onClick={() => router.push('/login')} className="border-primary text-primary hover:bg-primary hover:text-background">Register</Button>
+              <Button
+                variant="outline"
+                onClick={() => router.push("/login")}
+                className="border-primary text-primary hover:bg-primary hover:text-background"
+              >
+                Login
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => router.push("/login")}
+                className="border-primary text-primary hover:bg-primary hover:text-background"
+              >
+                Register
+              </Button>
             </>
           )}
           <Button className="ml-2">POST YOUR AD</Button>
@@ -102,48 +149,82 @@ function NavBar() {
 
         {/* Hamburger Icon (mobile) */}
         <div className="md:hidden">
-          <Menu className="w-6 h-6 cursor-pointer" onClick={() => setMenuOpen(!menuOpen)} />
+          <Menu
+            className="w-6 h-6 cursor-pointer"
+            onClick={() => setMenuOpen(!menuOpen)}
+          />
         </div>
       </div>
 
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden mt-3 px-2 space-y-2 text-gray-700">
-          <a href="/" className="block hover:text-primary">Home</a>
-          <a href="/about-us" className="block hover:text-primary">About Us</a>
-          <a href="/contact-us" className="block hover:text-primary">Contact Us</a>
+          <a href="/" className="block hover:text-primary">
+            Home
+          </a>
+          <a href="/about-us" className="block hover:text-primary">
+            About Us
+          </a>
+          <a href="/contact-us" className="block hover:text-primary">
+            Contact Us
+          </a>
           <hr />
           {session ? (
             <div className="flex items-center space-x-3">
               <Popover>
-                    <PopoverTrigger>{session.user?.image ? (
-                        <img
-                        src={session.user.image}
-                        alt={session.user.name || "User"}
-                        className="w-8 h-8 rounded-full"
-                        />
-                    ) : (
-                        <div className="w-8 h-8 bg-gray-100 rounded-full" />
-                    )}
-                    </PopoverTrigger>
-                    <PopoverContent>
-                        <Button
-                            variant="outline"
-                            className="border-primary text-primary hover:bg-primary hover:text-background transition-colors w-full"
-                            onClick={() => signOut()}
-                        >
-                            <LogOut className="w-4 h-4 mr-2" />
-                            Sign out
-                        </Button>
-                    </PopoverContent>
-                </Popover>
-                <p>{session.user?.name}</p>
+                <PopoverTrigger>
+                  {session.user?.image ? (
+                    <img
+                      src={session.user.image}
+                      alt={session.user.name || "User"}
+                      className="w-8 h-8 rounded-full"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 bg-gray-100 rounded-full" />
+                  )}
+                </PopoverTrigger>
+                <PopoverContent>
+                  <Button
+                    variant="outline"
+                    className="border-primary text-primary hover:bg-primary hover:text-background transition-colors w-full"
+                    onClick={() => signOut()}
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign out
+                  </Button>
+                </PopoverContent>
+              </Popover>
+              <p>{session.user?.name}</p>
             </div>
           ) : (
             <>
-              <Button variant="outline" onClick={() => router.push('/login')} className="w-full border-primary text-primary hover:bg-primary hover:text-background">Login</Button>
-              <Button variant="outline" onClick={() => router.push('/login')} className="w-full border-primary text-primary hover:bg-primary hover:text-background">Register</Button>
+              <Button
+                variant="outline"
+                onClick={() => router.push("/login")}
+                className="w-full border-primary text-primary hover:bg-primary hover:text-background"
+              >
+                Login
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => router.push("/login")}
+                className="w-full border-primary text-primary hover:bg-primary hover:text-background"
+              >
+                Register
+              </Button>
             </>
+          )}
+          {session ? (
+            <Button
+              className="w-full"
+              onClick={() => {
+                router.push("/dashboard");
+              }}
+            >
+              Watch your Ads
+            </Button>
+          ) : (
+            ""
           )}
           <Button className="w-full">POST YOUR AD</Button>
         </div>
