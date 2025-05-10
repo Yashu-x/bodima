@@ -1,6 +1,5 @@
 import { Eye } from "lucide-react";
 import { Share2 } from "lucide-react";
-import Link from "next/link";
 
 interface ListingTitleProps {
   title: string;

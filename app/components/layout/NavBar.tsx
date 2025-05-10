@@ -5,10 +5,11 @@ import { LogOut, Menu } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
+import DotsLoader from './DotsLoader';
 
 function NavBar() {
   const pathname = usePathname();
-  const { data: session } = useSession();
+  const { data: session,status } = useSession();
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -64,7 +65,8 @@ function NavBar() {
 
         {/* Right - Auth Buttons */}
         <div className="hidden md:flex items-center space-x-2">
-          {session ? (
+          {status === 'loading' ? <><DotsLoader/></>
+          : session ? (
             <div className="flex items-center gap-4">
                 <Popover>
                     <PopoverTrigger>{session.user?.image ? (
