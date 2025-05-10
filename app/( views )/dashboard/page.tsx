@@ -97,6 +97,7 @@ const data = [
 export default function Dashboard() {
     const { data: session, status } = useSession();
     const router = useRouter();
+    console.log(session)
 
     useEffect(() => {
         if (status === 'unauthenticated') {

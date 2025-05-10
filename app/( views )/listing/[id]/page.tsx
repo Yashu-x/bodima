@@ -50,6 +50,7 @@ export default function ListPage() {
 
   return (
     <div className='min-h-screen'>
+      
         <ListingTitle title={data?.title||""} postedDate={"meka danilkagen illa gannaoni created time"} location={data?.address||""} views={Property.views/*mekata model aka edit karanna wenaw  */} />
         <div className="w-full flex flex-col md:flex-row">
           <ImageCarousel images={images} />
