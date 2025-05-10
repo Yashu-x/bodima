@@ -5,7 +5,7 @@ import { PropertySchema } from "@/validateSchemas/propertySchema";
 import { z } from "zod";
 
 type Params = Promise<{ longitude: string; latitude: string,pageNo: string  }>;
-type propertyData = z.infer<typeof PropertySchema>;
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Params }

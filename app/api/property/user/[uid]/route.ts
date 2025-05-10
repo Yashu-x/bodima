@@ -2,7 +2,6 @@ import { NextResponse, NextRequest } from "next/server";
 import { dbConnect } from "@/lib/db";
 import properties from "@/models/property";
 import { PropertySchema } from "@/validateSchemas/propertySchema";
-import { getCurrentUser } from "@/lib/auth";
 import { z } from "zod";
 import { Types } from "mongoose";
 
