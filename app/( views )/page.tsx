@@ -17,7 +17,7 @@ export default function HomePage() {
     getNearPropertiesByLongitudeLatitude("79", "6", "1")
   );
 
-  
+
   return (
     <div>
       <div className="h-auto md:h-screen">
